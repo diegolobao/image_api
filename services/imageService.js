@@ -1,7 +1,8 @@
 const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
-const { v4: uuidv4 } = require('uuid');
+const fs = require('fs');
+const crypto = require('crypto');
 const templates = require('../config/templates');
 
 const TEMPLATE_DIR = path.join(__dirname, '../templates');
@@ -76,7 +77,7 @@ exports.generateImage = async (templateId, texts, imageUrl) => {
         console.log(`Using template file: ${templateConfig.filename}`);
     }
 
-    const filename = `${uuidv4()}.png`;
+    const filename = `${crypto.randomUUID()}.png`;
     const outputPath = path.join(OUTPUT_DIR, filename);
 
     // Create SVG for text overlay
