@@ -1,7 +1,6 @@
 const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
-const fs = require('fs');
 const crypto = require('crypto');
 const templates = require('../config/templates');
 
