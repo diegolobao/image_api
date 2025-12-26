@@ -1,0 +1,6 @@
+node_modules
+.env
+public/generated/*
+!public/generated/.gitkeep
+*.log
+erro-log-deploy*.txt
