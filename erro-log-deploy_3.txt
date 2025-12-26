@@ -1,0 +1,918 @@
+2025-Dec-25 20:36:42.466186
+Starting deployment of diegolobao/image_api:main to localhost.
+2025-Dec-25 20:36:42.657410
+Preparing container with helper image: ghcr.io/coollabsio/coolify-helper:1.0.12
+2025-Dec-25 20:36:42.770325
+[CMD]: docker stop --time=30 ls8gwwwg800wksck4c0ggs44
+2025-Dec-25 20:36:42.770325
+Error response from daemon: No such container: ls8gwwwg800wksck4c0ggs44
+2025-Dec-25 20:36:42.874643
+[CMD]: docker rm -f ls8gwwwg800wksck4c0ggs44
+2025-Dec-25 20:36:42.874643
+Error response from daemon: No such container: ls8gwwwg800wksck4c0ggs44
+2025-Dec-25 20:36:43.012691
+[CMD]: docker run -d --network coolify --name ls8gwwwg800wksck4c0ggs44  --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/coollabsio/coolify-helper:1.0.12
+2025-Dec-25 20:36:43.012691
+e797c67e35f1dd2c77a293a75cbf40814c1abb481bdc5ffa83b992c939c92fbf
+2025-Dec-25 20:36:43.788895
+[CMD]: docker exec ls8gwwwg800wksck4c0ggs44 bash -c 'GIT_SSH_COMMAND="ssh -o ConnectTimeout=30 -p 22 -o Port=22 -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git ls-remote https://github.com/diegolobao/image_api refs/heads/main'
+2025-Dec-25 20:36:43.788895
+9088d88d0619a83654e2998682641fabd9f76f0c	refs/heads/main
+2025-Dec-25 20:36:43.802224
+----------------------------------------
+2025-Dec-25 20:36:43.807880
+Importing diegolobao/image_api:main (commit sha 9088d88d0619a83654e2998682641fabd9f76f0c) to /artifacts/ls8gwwwg800wksck4c0ggs44.
+2025-Dec-25 20:36:43.942812
+[CMD]: docker exec ls8gwwwg800wksck4c0ggs44 bash -c 'git clone --depth=1 --recurse-submodules --shallow-submodules -b 'main' 'https://github.com/diegolobao/image_api' '/artifacts/ls8gwwwg800wksck4c0ggs44' && cd '/artifacts/ls8gwwwg800wksck4c0ggs44' && if [ -f .gitmodules ]; then sed -i "s#git@\(.*\):#https://\1/#g" '/artifacts/ls8gwwwg800wksck4c0ggs44'/.gitmodules || true && git submodule sync && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git submodule update --init --recursive --depth=1; fi && cd '/artifacts/ls8gwwwg800wksck4c0ggs44' && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git lfs pull'
+2025-Dec-25 20:36:43.942812
+Cloning into '/artifacts/ls8gwwwg800wksck4c0ggs44'...
+2025-Dec-25 20:36:46.567778
+[CMD]: docker exec ls8gwwwg800wksck4c0ggs44 bash -c 'cd /artifacts/ls8gwwwg800wksck4c0ggs44 && git log -1 9088d88d0619a83654e2998682641fabd9f76f0c --pretty=%B'
+2025-Dec-25 20:36:46.567778
+Fix: Add curl to Dockerfile for healthcheck & Pin uuid 9.0.0
+2025-Dec-25 20:36:46.690748
+Image not found (n8wkkgwo8c844kcg8s8o4cgg:9088d88d0619a83654e2998682641fabd9f76f0c). Building new image.
+2025-Dec-25 20:36:47.214076
+[CMD]: docker exec ls8gwwwg800wksck4c0ggs44 bash -c 'cat /artifacts/ls8gwwwg800wksck4c0ggs44/Dockerfile'
+2025-Dec-25 20:36:47.214076
+FROM node:18-slim
+2025-Dec-25 20:36:47.214076
+2025-Dec-25 20:36:47.214076
+WORKDIR /app
+2025-Dec-25 20:36:47.214076
+2025-Dec-25 20:36:47.214076
+COPY package*.json ./
+2025-Dec-25 20:36:47.214076
+2025-Dec-25 20:36:47.214076
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+2025-Dec-25 20:36:47.214076
+2025-Dec-25 20:36:47.214076
+RUN npm install --production
+2025-Dec-25 20:36:47.214076
+2025-Dec-25 20:36:47.214076
+COPY . .
+2025-Dec-25 20:36:47.214076
+2025-Dec-25 20:36:47.214076
+EXPOSE 3000
+2025-Dec-25 20:36:47.214076
+2025-Dec-25 20:36:47.214076
+CMD ["node", "server.js"]
+2025-Dec-25 20:36:47.376705
+Creating build-time .env file in /artifacts (outside Docker context).
+2025-Dec-25 20:36:47.646018
+[CMD]: docker exec ls8gwwwg800wksck4c0ggs44 bash -c 'cat /artifacts/build-time.env'
+2025-Dec-25 20:36:47.646018
+SOURCE_COMMIT='9088d88d0619a83654e2998682641fabd9f76f0c'
+2025-Dec-25 20:36:47.646018
+COOLIFY_URL='https://image_api.pontowebmarketing.com.br'
+2025-Dec-25 20:36:47.646018
+COOLIFY_FQDN='image_api.pontowebmarketing.com.br'
+2025-Dec-25 20:36:47.646018
+COOLIFY_BRANCH='main'
+2025-Dec-25 20:36:47.646018
+COOLIFY_RESOURCE_UUID='n8wkkgwo8c844kcg8s8o4cgg'
+2025-Dec-25 20:36:47.646018
+COOLIFY_CONTAINER_NAME='n8wkkgwo8c844kcg8s8o4cgg-203641626557'
+2025-Dec-25 20:36:47.646018
+API_KEY="my-secret-api-key"
+2025-Dec-25 20:36:47.646018
+PORT="3000"
+2025-Dec-25 20:36:47.805838
+[CMD]: docker exec ls8gwwwg800wksck4c0ggs44 bash -c 'cat /artifacts/ls8gwwwg800wksck4c0ggs44/Dockerfile'
+2025-Dec-25 20:36:47.805838
+FROM node:18-slim
+2025-Dec-25 20:36:47.805838
+2025-Dec-25 20:36:47.805838
+WORKDIR /app
+2025-Dec-25 20:36:47.805838
+2025-Dec-25 20:36:47.805838
+COPY package*.json ./
+2025-Dec-25 20:36:47.805838
+2025-Dec-25 20:36:47.805838
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+2025-Dec-25 20:36:47.805838
+2025-Dec-25 20:36:47.805838
+RUN npm install --production
+2025-Dec-25 20:36:47.805838
+2025-Dec-25 20:36:47.805838
+COPY . .
+2025-Dec-25 20:36:47.805838
+2025-Dec-25 20:36:47.805838
+EXPOSE 3000
+2025-Dec-25 20:36:47.805838
+2025-Dec-25 20:36:47.805838
+CMD ["node", "server.js"]
+2025-Dec-25 20:36:47.816702
+Final Dockerfile:
+2025-Dec-25 20:36:48.090881
+[CMD]: docker exec ls8gwwwg800wksck4c0ggs44 bash -c 'cat /artifacts/ls8gwwwg800wksck4c0ggs44/Dockerfile'
+2025-Dec-25 20:36:48.090881
+FROM node:18-slim
+2025-Dec-25 20:36:48.090881
+ARG API_KEY=my-secret-api-key
+2025-Dec-25 20:36:48.090881
+ARG PORT=3000
+2025-Dec-25 20:36:48.090881
+ARG SOURCE_COMMIT=9088d88d0619a83654e2998682641fabd9f76f0c
+2025-Dec-25 20:36:48.090881
+ARG COOLIFY_URL=https://image_api.pontowebmarketing.com.br
+2025-Dec-25 20:36:48.090881
+ARG COOLIFY_FQDN=image_api.pontowebmarketing.com.br
+2025-Dec-25 20:36:48.090881
+ARG COOLIFY_BRANCH=main
+2025-Dec-25 20:36:48.090881
+ARG COOLIFY_RESOURCE_UUID=n8wkkgwo8c844kcg8s8o4cgg
+2025-Dec-25 20:36:48.090881
+ARG COOLIFY_CONTAINER_NAME=n8wkkgwo8c844kcg8s8o4cgg-203641626557
+2025-Dec-25 20:36:48.090881
+2025-Dec-25 20:36:48.090881
+WORKDIR /app
+2025-Dec-25 20:36:48.090881
+2025-Dec-25 20:36:48.090881
+COPY package*.json ./
+2025-Dec-25 20:36:48.090881
+2025-Dec-25 20:36:48.090881
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+2025-Dec-25 20:36:48.090881
+2025-Dec-25 20:36:48.090881
+RUN npm install --production
+2025-Dec-25 20:36:48.090881
+2025-Dec-25 20:36:48.090881
+COPY . .
+2025-Dec-25 20:36:48.090881
+2025-Dec-25 20:36:48.090881
+EXPOSE 3000
+2025-Dec-25 20:36:48.090881
+2025-Dec-25 20:36:48.090881
+CMD ["node", "server.js"]
+2025-Dec-25 20:36:48.097436
+----------------------------------------
+2025-Dec-25 20:36:48.103118
+Building docker image started.
+2025-Dec-25 20:36:48.108183
+To check the current progress, click on Show Debug Logs.
+2025-Dec-25 20:36:48.379606
+[CMD]: docker exec ls8gwwwg800wksck4c0ggs44 bash -c 'cat /artifacts/build.sh'
+2025-Dec-25 20:36:48.379606
+cd /artifacts/ls8gwwwg800wksck4c0ggs44 && set -a && source /artifacts/build-time.env && set +a && docker build  --add-host coolify:10.0.2.5 --add-host coolify-db:10.0.2.3 --add-host coolify-realtime:10.0.2.4 --add-host coolify-redis:10.0.2.2 --add-host imgproxy-eg4c8w4044g480g04ogcwgs0:10.0.2.23 --add-host lws0s4cws0ososkswsso808o:10.0.2.7 --add-host n8n-xcoww4so8cwsocw84s8cogw4:10.0.2.10 --add-host n8n_webhook-xcoww4so8cwsocw84s8cogw4:10.0.2.12 --add-host n8n_worker-xcoww4so8cwsocw84s8cogw4:10.0.2.11 --add-host qc4sckwwgs8oowkgo0gc8444:10.0.2.9 --add-host realtime-dev-eg4c8w4044g480g04ogcwgs0:10.0.2.20 --add-host supabase-analytics-eg4c8w4044g480g04ogcwgs0:10.0.2.16 --add-host supabase-auth-eg4c8w4044g480g04ogcwgs0:10.0.2.19 --add-host supabase-db-eg4c8w4044g480g04ogcwgs0:10.0.2.15 --add-host supabase-edge-functions-eg4c8w4044g480g04ogcwgs0:10.0.2.25 --add-host supabase-kong-eg4c8w4044g480g04ogcwgs0:10.0.2.13 --add-host supabase-meta-eg4c8w4044g480g04ogcwgs0:10.0.2.24 --add-host supabase-minio-eg4c8w4044g480g04ogcwgs0:10.0.2.21 --add-host supabase-rest-eg4c8w4044g480g04ogcwgs0:10.0.2.18 --add-host supabase-storage-eg4c8w4044g480g04ogcwgs0:10.0.2.22 --add-host supabase-studio-eg4c8w4044g480g04ogcwgs0:10.0.2.14 --add-host supabase-supavisor-eg4c8w4044g480g04ogcwgs0:10.0.2.26 --add-host supabase-vector-eg4c8w4044g480g04ogcwgs0:10.0.2.17 --network host -f /artifacts/ls8gwwwg800wksck4c0ggs44/Dockerfile --build-arg SOURCE_COMMIT --build-arg COOLIFY_URL --build-arg COOLIFY_FQDN --build-arg COOLIFY_BRANCH --build-arg COOLIFY_RESOURCE_UUID --build-arg COOLIFY_CONTAINER_NAME --build-arg API_KEY --build-arg PORT --build-arg COOLIFY_BUILD_SECRETS_HASH=85c7d49b98cb5e9d4c6c06792753b8fd4dc491919b9605099dcdbcb2e7b119c4 --build-arg 'SOURCE_COMMIT' --build-arg 'COOLIFY_URL' --build-arg 'COOLIFY_FQDN' --build-arg 'COOLIFY_BRANCH' --build-arg 'COOLIFY_RESOURCE_UUID' --build-arg 'COOLIFY_CONTAINER_NAME' --progress plain -t n8wkkgwo8c844kcg8s8o4cgg:9088d88d0619a83654e2998682641fabd9f76f0c /artifacts/ls8gwwwg800wksck4c0ggs44
+2025-Dec-25 20:36:48.652018
+[CMD]: docker exec ls8gwwwg800wksck4c0ggs44 bash -c 'bash /artifacts/build.sh'
+2025-Dec-25 20:36:48.652018
+#0 building with "default" instance using docker driver
+2025-Dec-25 20:36:48.652018
+2025-Dec-25 20:36:48.652018
+#1 [internal] load build definition from Dockerfile
+2025-Dec-25 20:36:48.832562
+#1 transferring dockerfile: 605B done
+2025-Dec-25 20:36:48.832562
+#1 DONE 0.0s
+2025-Dec-25 20:36:48.832562
+2025-Dec-25 20:36:48.832562
+#2 [internal] load metadata for docker.io/library/node:18-slim
+2025-Dec-25 20:36:50.178789
+#2 DONE 1.5s
+2025-Dec-25 20:36:50.324637
+#3 [internal] load .dockerignore
+2025-Dec-25 20:36:50.324637
+#3 transferring context: 2B done
+2025-Dec-25 20:36:50.324637
+#3 DONE 0.0s
+2025-Dec-25 20:36:50.324637
+2025-Dec-25 20:36:50.324637
+#4 [1/6] FROM docker.io/library/node:18-slim@sha256:f9ab18e354e6855ae56ef2b290dd225c1e51a564f87584b9bd21dd651838830e
+2025-Dec-25 20:36:50.324637
+#4 resolve docker.io/library/node:18-slim@sha256:f9ab18e354e6855ae56ef2b290dd225c1e51a564f87584b9bd21dd651838830e 0.0s done
+2025-Dec-25 20:36:50.424769
+#4 sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72 0B / 38.30MB 0.1s
+2025-Dec-25 20:36:50.424769
+#4 sha256:2f0d35c51a75cbc9fc4ddeb36aa3e8b7e268306bffe70543e6b02627a54a13c4 0B / 1.71MB 0.1s
+2025-Dec-25 20:36:50.424769
+#4 sha256:378bc28767f6d83e7481f8c90d0e8be1140bb875d4f1c67dea8b3b52baa48282 0B / 448B 0.1s
+2025-Dec-25 20:36:50.424769
+#4 sha256:f9ab18e354e6855ae56ef2b290dd225c1e51a564f87584b9bd21dd651838830e 6.49kB / 6.49kB done
+2025-Dec-25 20:36:50.424769
+#4 sha256:0cc5f8897ffbf799d16ffe58bf3ce6242d23e5f9aa658e55b8d5ca8fc7f01bad 1.93kB / 1.93kB done
+2025-Dec-25 20:36:50.424769
+#4 sha256:c1f2ed8bac52e9b1023ffa1ee5bbf1e0fd0ba478a31b2a321c534de24b3e3893 6.56kB / 6.56kB done
+2025-Dec-25 20:36:50.826731
+#4 ...
+2025-Dec-25 20:36:50.826731
+2025-Dec-25 20:36:50.826731
+#5 [internal] load build context
+2025-Dec-25 20:36:50.826731
+#5 transferring context: 87.88MB 0.4s done
+2025-Dec-25 20:36:50.826731
+#5 DONE 0.5s
+2025-Dec-25 20:36:50.826731
+2025-Dec-25 20:36:50.826731
+#4 [1/6] FROM docker.io/library/node:18-slim@sha256:f9ab18e354e6855ae56ef2b290dd225c1e51a564f87584b9bd21dd651838830e
+2025-Dec-25 20:36:50.826731
+#4 sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72 2.10MB / 38.30MB 0.6s
+2025-Dec-25 20:36:50.826731
+#4 sha256:2f0d35c51a75cbc9fc4ddeb36aa3e8b7e268306bffe70543e6b02627a54a13c4 1.71MB / 1.71MB 0.3s done
+2025-Dec-25 20:36:50.826731
+#4 sha256:378bc28767f6d83e7481f8c90d0e8be1140bb875d4f1c67dea8b3b52baa48282 448B / 448B 0.5s done
+2025-Dec-25 20:36:51.028271
+#4 sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72 24.12MB / 38.30MB 0.8s
+2025-Dec-25 20:36:51.226379
+#4 sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72 38.30MB / 38.30MB 1.0s
+2025-Dec-25 20:36:51.336806
+#4 sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72 38.30MB / 38.30MB 1.1s done
+2025-Dec-25 20:36:51.336806
+#4 extracting sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72
+2025-Dec-25 20:36:52.319299
+#4 extracting sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72 0.9s done
+2025-Dec-25 20:36:52.319299
+#4 extracting sha256:2f0d35c51a75cbc9fc4ddeb36aa3e8b7e268306bffe70543e6b02627a54a13c4 0.0s done
+2025-Dec-25 20:36:52.319299
+#4 extracting sha256:378bc28767f6d83e7481f8c90d0e8be1140bb875d4f1c67dea8b3b52baa48282
+2025-Dec-25 20:36:52.536522
+#4 extracting sha256:378bc28767f6d83e7481f8c90d0e8be1140bb875d4f1c67dea8b3b52baa48282 done
+2025-Dec-25 20:36:52.536522
+#4 DONE 2.2s
+2025-Dec-25 20:36:52.536522
+2025-Dec-25 20:36:52.536522
+#6 [2/6] WORKDIR /app
+2025-Dec-25 20:36:56.597503
+#6 DONE 4.2s
+2025-Dec-25 20:36:56.788645
+#7 [3/6] COPY package*.json ./
+2025-Dec-25 20:36:56.788645
+#7 DONE 0.0s
+2025-Dec-25 20:36:56.788645
+2025-Dec-25 20:36:56.788645
+#8 [4/6] RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+2025-Dec-25 20:36:56.926707
+#8 0.290 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+2025-Dec-25 20:36:57.100669
+#8 0.301 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+2025-Dec-25 20:36:57.100669
+#8 0.301 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+2025-Dec-25 20:36:57.100669
+#8 0.382 Get:4 http://deb.debian.org/debian bookworm/main arm64 Packages [8693 kB]
+2025-Dec-25 20:36:57.100669
+#8 0.463 Get:5 http://deb.debian.org/debian bookworm-updates/main arm64 Packages [6936 B]
+2025-Dec-25 20:36:57.306232
+#8 0.518 Get:6 http://deb.debian.org/debian-security bookworm-security/main arm64 Packages [285 kB]
+2025-Dec-25 20:36:57.940389
+#8 1.303 Fetched 9239 kB in 1s (9065 kB/s)
+2025-Dec-25 20:36:57.940389
+#8 1.303 Reading package lists...
+2025-Dec-25 20:36:58.489181
+2025-Dec-25 20:36:58.663806
+#8 1.876 Reading package lists...
+2025-Dec-25 20:36:59.069538
+2025-Dec-25 20:36:59.235741
+#8 2.448 Building dependency tree...
+2025-Dec-25 20:36:59.259634
+#8 2.622 Reading state information...
+2025-Dec-25 20:36:59.484472
+#8 2.847 The following additional packages will be installed:
+2025-Dec-25 20:36:59.640409
+#8 2.848   ca-certificates krb5-locales libbrotli1 libcurl4 libgssapi-krb5-2
+2025-Dec-25 20:36:59.640409
+#8 2.848   libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-2.5-0
+2025-Dec-25 20:36:59.640409
+#8 2.849   libldap-common libnghttp2-14 libpsl5 librtmp1 libsasl2-2 libsasl2-modules
+2025-Dec-25 20:36:59.640409
+#8 2.850   libsasl2-modules-db libssh2-1 libssl3 openssl publicsuffix
+2025-Dec-25 20:36:59.640409
+#8 2.853 Suggested packages:
+2025-Dec-25 20:36:59.640409
+#8 2.853   krb5-doc krb5-user libsasl2-modules-gssapi-mit
+2025-Dec-25 20:36:59.640409
+#8 2.853   | libsasl2-modules-gssapi-heimdal libsasl2-modules-ldap libsasl2-modules-otp
+2025-Dec-25 20:36:59.640409
+#8 2.853   libsasl2-modules-sql
+2025-Dec-25 20:36:59.653239
+#8 3.016 The following NEW packages will be installed:
+2025-Dec-25 20:36:59.899672
+#8 3.017   ca-certificates curl krb5-locales libbrotli1 libcurl4 libgssapi-krb5-2
+2025-Dec-25 20:36:59.899672
+#8 3.017   libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-2.5-0
+2025-Dec-25 20:36:59.899672
+#8 3.017   libldap-common libnghttp2-14 libpsl5 librtmp1 libsasl2-2 libsasl2-modules
+2025-Dec-25 20:36:59.899672
+#8 3.018   libsasl2-modules-db libssh2-1 libssl3 openssl publicsuffix
+2025-Dec-25 20:36:59.899672
+#8 3.044 0 upgraded, 22 newly installed, 0 to remove and 17 not upgraded.
+2025-Dec-25 20:36:59.899672
+#8 3.044 Need to get 5767 kB of archives.
+2025-Dec-25 20:36:59.899672
+#8 3.044 After this operation, 16.4 MB of additional disk space will be used.
+2025-Dec-25 20:36:59.899672
+#8 3.044 Get:1 http://deb.debian.org/debian-security bookworm-security/main arm64 libssl3 arm64 3.0.17-1~deb12u3 [1817 kB]
+2025-Dec-25 20:36:59.899672
+#8 3.055 Get:2 http://deb.debian.org/debian-security bookworm-security/main arm64 openssl arm64 3.0.17-1~deb12u3 [1400 kB]
+2025-Dec-25 20:36:59.899672
+#8 3.061 Get:3 http://deb.debian.org/debian bookworm/main arm64 ca-certificates all 20230311+deb12u1 [155 kB]
+2025-Dec-25 20:36:59.899672
+#8 3.062 Get:4 http://deb.debian.org/debian bookworm/main arm64 krb5-locales all 1.20.1-2+deb12u4 [63.4 kB]
+2025-Dec-25 20:36:59.899672
+#8 3.062 Get:5 http://deb.debian.org/debian bookworm/main arm64 libbrotli1 arm64 1.0.9-2+b6 [269 kB]
+2025-Dec-25 20:36:59.899672
+#8 3.063 Get:6 http://deb.debian.org/debian bookworm/main arm64 libkrb5support0 arm64 1.20.1-2+deb12u4 [32.5 kB]
+2025-Dec-25 20:36:59.899672
+#8 3.066 Get:7 http://deb.debian.org/debian bookworm/main arm64 libk5crypto3 arm64 1.20.1-2+deb12u4 [80.2 kB]
+2025-Dec-25 20:36:59.899672
+#8 3.069 Get:8 http://deb.debian.org/debian bookworm/main arm64 libkeyutils1 arm64 1.6.3-2 [8844 B]
+2025-Dec-25 20:36:59.899672
+#8 3.070 Get:9 http://deb.debian.org/debian bookworm/main arm64 libkrb5-3 arm64 1.20.1-2+deb12u4 [314 kB]
+2025-Dec-25 20:36:59.899672
+#8 3.072 Get:10 http://deb.debian.org/debian bookworm/main arm64 libgssapi-krb5-2 arm64 1.20.1-2+deb12u4 [124 kB]
+2025-Dec-25 20:36:59.899672
+#8 3.079 Get:11 http://deb.debian.org/debian bookworm/main arm64 libsasl2-modules-db arm64 2.1.28+dfsg-10 [20.8 kB]
+2025-Dec-25 20:36:59.899672
+#8 3.081 Get:12 http://deb.debian.org/debian bookworm/main arm64 libsasl2-2 arm64 2.1.28+dfsg-10 [58.0 kB]
+2025-Dec-25 20:36:59.899672
+#8 3.082 Get:13 http://deb.debian.org/debian bookworm/main arm64 libldap-2.5-0 arm64 2.5.13+dfsg-5 [171 kB]
+2025-Dec-25 20:36:59.899672
+#8 3.084 Get:14 http://deb.debian.org/debian bookworm/main arm64 libnghttp2-14 arm64 1.52.0-1+deb12u2 [68.6 kB]
+2025-Dec-25 20:36:59.899672
+#8 3.087 Get:15 http://deb.debian.org/debian bookworm/main arm64 libpsl5 arm64 0.21.2-1 [58.6 kB]
+2025-Dec-25 20:36:59.899672
+#8 3.091 Get:16 http://deb.debian.org/debian bookworm/main arm64 librtmp1 arm64 2.4+20151223.gitfa8646d.1-2+b2 [59.4 kB]
+2025-Dec-25 20:36:59.899672
+#8 3.099 Get:17 http://deb.debian.org/debian bookworm/main arm64 libssh2-1 arm64 1.10.0-3+b1 [172 kB]
+2025-Dec-25 20:36:59.902959
+#8 3.100 Get:18 http://deb.debian.org/debian bookworm/main arm64 libcurl4 arm64 7.88.1-10+deb12u14 [367 kB]
+2025-Dec-25 20:36:59.902959
+#8 3.102 Get:19 http://deb.debian.org/debian bookworm/main arm64 curl arm64 7.88.1-10+deb12u14 [309 kB]
+2025-Dec-25 20:36:59.902959
+#8 3.104 Get:20 http://deb.debian.org/debian bookworm/main arm64 libldap-common all 2.5.13+dfsg-5 [29.3 kB]
+2025-Dec-25 20:36:59.902959
+#8 3.107 Get:21 http://deb.debian.org/debian bookworm/main arm64 libsasl2-modules arm64 2.1.28+dfsg-10 [63.1 kB]
+2025-Dec-25 20:36:59.902959
+#8 3.112 Get:22 http://deb.debian.org/debian bookworm/main arm64 publicsuffix all 20230209.2326-1 [126 kB]
+2025-Dec-25 20:36:59.958429
+#8 3.321 debconf: delaying package configuration, since apt-utils is not installed
+2025-Dec-25 20:37:00.059753
+#8 3.364 Fetched 5767 kB in 0s (68.3 MB/s)
+2025-Dec-25 20:37:00.059753
+#8 3.399 Selecting previously unselected package libssl3:arm64.
+2025-Dec-25 20:37:00.059753
+#8 3.399 (Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+2025-Dec-25 20:37:00.231593
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 6083 files and directories currently installed.)
+2025-Dec-25 20:37:00.231593
+#8 3.449 Preparing to unpack .../00-libssl3_3.0.17-1~deb12u3_arm64.deb ...
+2025-Dec-25 20:37:00.231593
+#8 3.458 Unpacking libssl3:arm64 (3.0.17-1~deb12u3) ...
+2025-Dec-25 20:37:00.231593
+#8 3.594 Selecting previously unselected package openssl.
+2025-Dec-25 20:37:00.345329
+#8 3.596 Preparing to unpack .../01-openssl_3.0.17-1~deb12u3_arm64.deb ...
+2025-Dec-25 20:37:00.345329
+#8 3.599 Unpacking openssl (3.0.17-1~deb12u3) ...
+2025-Dec-25 20:37:00.345329
+#8 3.708 Selecting previously unselected package ca-certificates.
+2025-Dec-25 20:37:00.490967
+#8 3.710 Preparing to unpack .../02-ca-certificates_20230311+deb12u1_all.deb ...
+2025-Dec-25 20:37:00.490967
+#8 3.714 Unpacking ca-certificates (20230311+deb12u1) ...
+2025-Dec-25 20:37:00.490967
+#8 3.761 Selecting previously unselected package krb5-locales.
+2025-Dec-25 20:37:00.490967
+#8 3.763 Preparing to unpack .../03-krb5-locales_1.20.1-2+deb12u4_all.deb ...
+2025-Dec-25 20:37:00.490967
+#8 3.766 Unpacking krb5-locales (1.20.1-2+deb12u4) ...
+2025-Dec-25 20:37:00.490967
+#8 3.798 Selecting previously unselected package libbrotli1:arm64.
+2025-Dec-25 20:37:00.490967
+#8 3.800 Preparing to unpack .../04-libbrotli1_1.0.9-2+b6_arm64.deb ...
+2025-Dec-25 20:37:00.490967
+#8 3.802 Unpacking libbrotli1:arm64 (1.0.9-2+b6) ...
+2025-Dec-25 20:37:00.490967
+#8 3.854 Selecting previously unselected package libkrb5support0:arm64.
+2025-Dec-25 20:37:00.597385
+#8 3.856 Preparing to unpack .../05-libkrb5support0_1.20.1-2+deb12u4_arm64.deb ...
+2025-Dec-25 20:37:00.597385
+#8 3.860 Unpacking libkrb5support0:arm64 (1.20.1-2+deb12u4) ...
+2025-Dec-25 20:37:00.597385
+#8 3.900 Selecting previously unselected package libk5crypto3:arm64.
+2025-Dec-25 20:37:00.597385
+#8 3.901 Preparing to unpack .../06-libk5crypto3_1.20.1-2+deb12u4_arm64.deb ...
+2025-Dec-25 20:37:00.597385
+#8 3.906 Unpacking libk5crypto3:arm64 (1.20.1-2+deb12u4) ...
+2025-Dec-25 20:37:00.597385
+#8 3.960 Selecting previously unselected package libkeyutils1:arm64.
+2025-Dec-25 20:37:00.733061
+#8 3.963 Preparing to unpack .../07-libkeyutils1_1.6.3-2_arm64.deb ...
+2025-Dec-25 20:37:00.733061
+#8 3.966 Unpacking libkeyutils1:arm64 (1.6.3-2) ...
+2025-Dec-25 20:37:00.733061
+#8 4.021 Selecting previously unselected package libkrb5-3:arm64.
+2025-Dec-25 20:37:00.733061
+#8 4.023 Preparing to unpack .../08-libkrb5-3_1.20.1-2+deb12u4_arm64.deb ...
+2025-Dec-25 20:37:00.736392
+#8 4.028 Unpacking libkrb5-3:arm64 (1.20.1-2+deb12u4) ...
+2025-Dec-25 20:37:00.736392
+#8 4.095 Selecting previously unselected package libgssapi-krb5-2:arm64.
+2025-Dec-25 20:37:00.836293
+#8 4.098 Preparing to unpack .../09-libgssapi-krb5-2_1.20.1-2+deb12u4_arm64.deb ...
+2025-Dec-25 20:37:00.836293
+#8 4.104 Unpacking libgssapi-krb5-2:arm64 (1.20.1-2+deb12u4) ...
+2025-Dec-25 20:37:00.836293
+#8 4.158 Selecting previously unselected package libsasl2-modules-db:arm64.
+2025-Dec-25 20:37:00.836293
+#8 4.161 Preparing to unpack .../10-libsasl2-modules-db_2.1.28+dfsg-10_arm64.deb ...
+2025-Dec-25 20:37:00.836293
+#8 4.165 Unpacking libsasl2-modules-db:arm64 (2.1.28+dfsg-10) ...
+2025-Dec-25 20:37:00.836293
+#8 4.199 Selecting previously unselected package libsasl2-2:arm64.
+2025-Dec-25 20:37:00.963744
+#8 4.201 Preparing to unpack .../11-libsasl2-2_2.1.28+dfsg-10_arm64.deb ...
+2025-Dec-25 20:37:00.963744
+#8 4.205 Unpacking libsasl2-2:arm64 (2.1.28+dfsg-10) ...
+2025-Dec-25 20:37:00.963744
+#8 4.237 Selecting previously unselected package libldap-2.5-0:arm64.
+2025-Dec-25 20:37:00.963744
+#8 4.239 Preparing to unpack .../12-libldap-2.5-0_2.5.13+dfsg-5_arm64.deb ...
+2025-Dec-25 20:37:00.963744
+#8 4.242 Unpacking libldap-2.5-0:arm64 (2.5.13+dfsg-5) ...
+2025-Dec-25 20:37:00.963744
+#8 4.287 Selecting previously unselected package libnghttp2-14:arm64.
+2025-Dec-25 20:37:00.963744
+#8 4.289 Preparing to unpack .../13-libnghttp2-14_1.52.0-1+deb12u2_arm64.deb ...
+2025-Dec-25 20:37:00.963744
+#8 4.292 Unpacking libnghttp2-14:arm64 (1.52.0-1+deb12u2) ...
+2025-Dec-25 20:37:00.963744
+#8 4.327 Selecting previously unselected package libpsl5:arm64.
+2025-Dec-25 20:37:01.080088
+#8 4.329 Preparing to unpack .../14-libpsl5_0.21.2-1_arm64.deb ...
+2025-Dec-25 20:37:01.080088
+#8 4.332 Unpacking libpsl5:arm64 (0.21.2-1) ...
+2025-Dec-25 20:37:01.080088
+#8 4.363 Selecting previously unselected package librtmp1:arm64.
+2025-Dec-25 20:37:01.080088
+#8 4.365 Preparing to unpack .../15-librtmp1_2.4+20151223.gitfa8646d.1-2+b2_arm64.deb ...
+2025-Dec-25 20:37:01.080088
+#8 4.368 Unpacking librtmp1:arm64 (2.4+20151223.gitfa8646d.1-2+b2) ...
+2025-Dec-25 20:37:01.080088
+#8 4.401 Selecting previously unselected package libssh2-1:arm64.
+2025-Dec-25 20:37:01.083594
+#8 4.402 Preparing to unpack .../16-libssh2-1_1.10.0-3+b1_arm64.deb ...
+2025-Dec-25 20:37:01.083594
+#8 4.406 Unpacking libssh2-1:arm64 (1.10.0-3+b1) ...
+2025-Dec-25 20:37:01.083594
+#8 4.443 Selecting previously unselected package libcurl4:arm64.
+2025-Dec-25 20:37:01.180049
+#8 4.444 Preparing to unpack .../17-libcurl4_7.88.1-10+deb12u14_arm64.deb ...
+2025-Dec-25 20:37:01.180049
+#8 4.448 Unpacking libcurl4:arm64 (7.88.1-10+deb12u14) ...
+2025-Dec-25 20:37:01.180049
+#8 4.495 Selecting previously unselected package curl.
+2025-Dec-25 20:37:01.180049
+#8 4.496 Preparing to unpack .../18-curl_7.88.1-10+deb12u14_arm64.deb ...
+2025-Dec-25 20:37:01.180049
+#8 4.499 Unpacking curl (7.88.1-10+deb12u14) ...
+2025-Dec-25 20:37:01.180049
+#8 4.541 Selecting previously unselected package libldap-common.
+2025-Dec-25 20:37:01.180049
+#8 4.543 Preparing to unpack .../19-libldap-common_2.5.13+dfsg-5_all.deb ...
+2025-Dec-25 20:37:01.312949
+#8 4.547 Unpacking libldap-common (2.5.13+dfsg-5) ...
+2025-Dec-25 20:37:01.316781
+#8 4.580 Selecting previously unselected package libsasl2-modules:arm64.
+2025-Dec-25 20:37:01.316781
+#8 4.582 Preparing to unpack .../20-libsasl2-modules_2.1.28+dfsg-10_arm64.deb ...
+2025-Dec-25 20:37:01.316781
+#8 4.594 Unpacking libsasl2-modules:arm64 (2.1.28+dfsg-10) ...
+2025-Dec-25 20:37:01.316781
+#8 4.629 Selecting previously unselected package publicsuffix.
+2025-Dec-25 20:37:01.316781
+#8 4.631 Preparing to unpack .../21-publicsuffix_20230209.2326-1_all.deb ...
+2025-Dec-25 20:37:01.316781
+#8 4.634 Unpacking publicsuffix (20230209.2326-1) ...
+2025-Dec-25 20:37:01.316781
+#8 4.676 Setting up libkeyutils1:arm64 (1.6.3-2) ...
+2025-Dec-25 20:37:01.422556
+#8 4.686 Setting up libpsl5:arm64 (0.21.2-1) ...
+2025-Dec-25 20:37:01.422556
+#8 4.695 Setting up libbrotli1:arm64 (1.0.9-2+b6) ...
+2025-Dec-25 20:37:01.422556
+#8 4.703 Setting up libssl3:arm64 (3.0.17-1~deb12u3) ...
+2025-Dec-25 20:37:01.426799
+#8 4.713 Setting up libnghttp2-14:arm64 (1.52.0-1+deb12u2) ...
+2025-Dec-25 20:37:01.426799
+#8 4.723 Setting up krb5-locales (1.20.1-2+deb12u4) ...
+2025-Dec-25 20:37:01.426799
+#8 4.732 Setting up libldap-common (2.5.13+dfsg-5) ...
+2025-Dec-25 20:37:01.426799
+#8 4.744 Setting up libkrb5support0:arm64 (1.20.1-2+deb12u4) ...
+2025-Dec-25 20:37:01.426799
+#8 4.754 Setting up libsasl2-modules-db:arm64 (2.1.28+dfsg-10) ...
+2025-Dec-25 20:37:01.426799
+#8 4.765 Setting up librtmp1:arm64 (2.4+20151223.gitfa8646d.1-2+b2) ...
+2025-Dec-25 20:37:01.426799
+#8 4.776 Setting up libk5crypto3:arm64 (1.20.1-2+deb12u4) ...
+2025-Dec-25 20:37:01.426799
+#8 4.785 Setting up libsasl2-2:arm64 (2.1.28+dfsg-10) ...
+2025-Dec-25 20:37:01.582661
+#8 4.796 Setting up libssh2-1:arm64 (1.10.0-3+b1) ...
+2025-Dec-25 20:37:01.582661
+#8 4.805 Setting up libkrb5-3:arm64 (1.20.1-2+deb12u4) ...
+2025-Dec-25 20:37:01.582661
+#8 4.815 Setting up openssl (3.0.17-1~deb12u3) ...
+2025-Dec-25 20:37:01.582661
+#8 4.827 Setting up publicsuffix (20230209.2326-1) ...
+2025-Dec-25 20:37:01.582661
+#8 4.835 Setting up libsasl2-modules:arm64 (2.1.28+dfsg-10) ...
+2025-Dec-25 20:37:01.582661
+#8 4.848 Setting up libldap-2.5-0:arm64 (2.5.13+dfsg-5) ...
+2025-Dec-25 20:37:01.582661
+#8 4.857 Setting up ca-certificates (20230311+deb12u1) ...
+2025-Dec-25 20:37:01.582661
+#8 4.944 debconf: unable to initialize frontend: Dialog
+2025-Dec-25 20:37:01.582661
+#8 4.944 debconf: (TERM is not set, so the dialog frontend is not usable.)
+2025-Dec-25 20:37:01.582661
+#8 4.944 debconf: falling back to frontend: Readline
+2025-Dec-25 20:37:01.734355
+#8 4.946 debconf: unable to initialize frontend: Readline
+2025-Dec-25 20:37:01.734355
+#8 4.946 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/aarch64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/aarch64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/aarch64-linux-gnu/perl-base /usr/lib/aarch64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+2025-Dec-25 20:37:01.734355
+#8 4.946 debconf: falling back to frontend: Teletype
+2025-Dec-25 20:37:02.003527
+#8 5.366 Updating certificates in /etc/ssl/certs...
+2025-Dec-25 20:37:02.555312
+#8 5.918 142 added, 0 removed; done.
+2025-Dec-25 20:37:02.694211
+#8 5.952 Setting up libgssapi-krb5-2:arm64 (1.20.1-2+deb12u4) ...
+2025-Dec-25 20:37:02.694211
+#8 5.962 Setting up libcurl4:arm64 (7.88.1-10+deb12u14) ...
+2025-Dec-25 20:37:02.694211
+#8 5.973 Setting up curl (7.88.1-10+deb12u14) ...
+2025-Dec-25 20:37:02.694211
+#8 5.982 Processing triggers for libc-bin (2.36-9+deb12u10) ...
+2025-Dec-25 20:37:02.694211
+#8 6.057 Processing triggers for ca-certificates (20230311+deb12u1) ...
+2025-Dec-25 20:37:02.850871
+#8 6.063 Updating certificates in /etc/ssl/certs...
+2025-Dec-25 20:37:03.167873
+#8 6.530 0 added, 0 removed; done.
+2025-Dec-25 20:37:03.167873
+#8 6.530 Running hooks in /etc/ca-certificates/update.d...
+2025-Dec-25 20:37:03.280889
+#8 6.538 done.
+2025-Dec-25 20:37:03.280889
+#8 DONE 6.6s
+2025-Dec-25 20:37:03.434137
+#9 [5/6] RUN npm install --production
+2025-Dec-25 20:37:03.576838
+#9 0.293 npm warn config production Use `--omit=dev` instead.
+2025-Dec-25 20:37:05.889393
+#9 2.606
+2025-Dec-25 20:37:05.889393
+#9 2.606 added 77 packages, and audited 78 packages in 2s
+2025-Dec-25 20:37:05.893286
+2025-Dec-25 20:37:06.043917
+#9 2.606
+2025-Dec-25 20:37:06.043917
+#9 2.606 25 packages are looking for funding
+2025-Dec-25 20:37:06.043917
+#9 2.606   run `npm fund` for details
+2025-Dec-25 20:37:06.043917
+#9 2.608
+2025-Dec-25 20:37:06.043917
+#9 2.608 found 0 vulnerabilities
+2025-Dec-25 20:37:06.043917
+#9 2.610 npm notice
+2025-Dec-25 20:37:06.043917
+#9 2.610 npm notice New major version of npm available! 10.8.2 -> 11.7.0
+2025-Dec-25 20:37:06.043917
+#9 2.610 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.7.0
+2025-Dec-25 20:37:06.043917
+#9 2.610 npm notice To update run: npm install -g npm@11.7.0
+2025-Dec-25 20:37:06.043917
+#9 2.610 npm notice
+2025-Dec-25 20:37:06.169118
+#9 DONE 2.9s
+2025-Dec-25 20:37:06.322950
+#10 [6/6] COPY . .
+2025-Dec-25 20:37:07.376814
+#10 DONE 1.2s
+2025-Dec-25 20:37:07.541614
+#11 exporting to image
+2025-Dec-25 20:37:07.541614
+#11 exporting layers
+2025-Dec-25 20:37:07.629211
+#11 exporting layers 0.2s done
+2025-Dec-25 20:37:07.688541
+#11 writing image sha256:1fde87cff29bd33bb1af252792afd6265ad1b4e5a46ef40669402dbed05b5b9f done
+2025-Dec-25 20:37:07.688541
+#11 naming to docker.io/library/n8wkkgwo8c844kcg8s8o4cgg:9088d88d0619a83654e2998682641fabd9f76f0c done
+2025-Dec-25 20:37:07.688541
+#11 DONE 0.3s
+2025-Dec-25 20:37:07.704371
+Building docker image completed.
+2025-Dec-25 20:37:07.717682
+Creating .env file with runtime variables for build phase.
+2025-Dec-25 20:37:07.999274
+[CMD]: docker exec ls8gwwwg800wksck4c0ggs44 bash -c 'cat /artifacts/ls8gwwwg800wksck4c0ggs44/.env'
+2025-Dec-25 20:37:07.999274
+SOURCE_COMMIT=9088d88d0619a83654e2998682641fabd9f76f0c
+2025-Dec-25 20:37:07.999274
+COOLIFY_URL=https://image_api.pontowebmarketing.com.br
+2025-Dec-25 20:37:07.999274
+COOLIFY_FQDN=image_api.pontowebmarketing.com.br
+2025-Dec-25 20:37:07.999274
+COOLIFY_BRANCH=main
+2025-Dec-25 20:37:07.999274
+COOLIFY_RESOURCE_UUID=n8wkkgwo8c844kcg8s8o4cgg
+2025-Dec-25 20:37:07.999274
+COOLIFY_CONTAINER_NAME=n8wkkgwo8c844kcg8s8o4cgg-203641626557
+2025-Dec-25 20:37:07.999274
+API_KEY=my-secret-api-key
+2025-Dec-25 20:37:07.999274
+PORT=3000
+2025-Dec-25 20:37:07.999274
+HOST=0.0.0.0
+2025-Dec-25 20:37:08.104430
+----------------------------------------
+2025-Dec-25 20:37:08.111454
+Rolling update started.
+2025-Dec-25 20:37:08.330093
+[CMD]: docker exec ls8gwwwg800wksck4c0ggs44 bash -c 'SOURCE_COMMIT=9088d88d0619a83654e2998682641fabd9f76f0c COOLIFY_URL=https://image_api.pontowebmarketing.com.br COOLIFY_FQDN=image_api.pontowebmarketing.com.br COOLIFY_BRANCH=main COOLIFY_RESOURCE_UUID=n8wkkgwo8c844kcg8s8o4cgg COOLIFY_CONTAINER_NAME=n8wkkgwo8c844kcg8s8o4cgg-203641626557  docker compose --project-name n8wkkgwo8c844kcg8s8o4cgg --project-directory /artifacts/ls8gwwwg800wksck4c0ggs44 -f /artifacts/ls8gwwwg800wksck4c0ggs44/docker-compose.yaml up --build -d'
+2025-Dec-25 20:37:08.330093
+Container n8wkkgwo8c844kcg8s8o4cgg-203641626557  Creating
+2025-Dec-25 20:37:08.374439
+Container n8wkkgwo8c844kcg8s8o4cgg-203641626557  Created
+2025-Dec-25 20:37:08.383515
+Container n8wkkgwo8c844kcg8s8o4cgg-203641626557  Starting
+2025-Dec-25 20:37:08.574489
+Container n8wkkgwo8c844kcg8s8o4cgg-203641626557  Started
+2025-Dec-25 20:37:08.586009
+New container started.
+2025-Dec-25 20:37:08.594361
+Waiting for healthcheck to pass on the new container.
+2025-Dec-25 20:37:08.601494
+Healthcheck URL (inside the container): GET: http://localhost:3000/health
+2025-Dec-25 20:37:08.608345
+Waiting for the start period (5 seconds) before starting healthcheck.
+2025-Dec-25 20:37:13.854224
+[CMD]: docker inspect --format='{{json .State.Health.Status}}' n8wkkgwo8c844kcg8s8o4cgg-203641626557
+2025-Dec-25 20:37:13.854224
+"starting"
+2025-Dec-25 20:37:13.972651
+[CMD]: docker inspect --format='{{json .State.Health.Log}}' n8wkkgwo8c844kcg8s8o4cgg-203641626557
+2025-Dec-25 20:37:13.972651
+[]
+2025-Dec-25 20:37:13.977515
+Attempt 1 of 10 | Healthcheck status: "starting"
+2025-Dec-25 20:37:19.091696
+[CMD]: docker inspect --format='{{json .State.Health.Status}}' n8wkkgwo8c844kcg8s8o4cgg-203641626557
+2025-Dec-25 20:37:19.091696
+"unhealthy"
+2025-Dec-25 20:37:19.200518
+[CMD]: docker inspect --format='{{json .State.Health.Log}}' n8wkkgwo8c844kcg8s8o4cgg-203641626557
+2025-Dec-25 20:37:19.200518
+[]
+2025-Dec-25 20:37:19.204852
+Attempt 2 of 10 | Healthcheck status: "unhealthy"
+2025-Dec-25 20:37:19.211390
+----------------------------------------
+2025-Dec-25 20:37:19.217477
+Container logs:
+2025-Dec-25 20:37:19.327888
+[CMD]: docker logs -n 100 n8wkkgwo8c844kcg8s8o4cgg-203641626557
+2025-Dec-25 20:37:19.327888
+[dotenv@17.2.3] injecting env (1) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+2025-Dec-25 20:37:19.327888
+[dotenv@17.2.3] injecting env (1) from .env -- tip: ✅ audit secrets and track compliance: https://dotenvx.com/ops
+2025-Dec-25 20:37:19.327888
+[dotenv@17.2.3] injecting env (1) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+2025-Dec-25 20:37:19.327888
+[dotenv@17.2.3] injecting env (1) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+2025-Dec-25 20:37:19.327888
+[dotenv@17.2.3] injecting env (1) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+2025-Dec-25 20:37:19.327888
+[dotenv@17.2.3] injecting env (1) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+2025-Dec-25 20:37:19.331896
+Error [ERR_REQUIRE_ESM]: require() of ES Module /app/node_modules/uuid/dist-node/index.js from /app/services/imageService.js not supported.
+2025-Dec-25 20:37:19.331896
+Instead change the require of index.js in /app/services/imageService.js to a dynamic import() which is available in all CommonJS modules.
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/services/imageService.js:4:24)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/routes/api.js:3:25)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/server.js:5:19) {
+2025-Dec-25 20:37:19.331896
+code: 'ERR_REQUIRE_ESM'
+2025-Dec-25 20:37:19.331896
+}
+2025-Dec-25 20:37:19.331896
+2025-Dec-25 20:37:19.331896
+Node.js v18.20.8
+2025-Dec-25 20:37:19.331896
+/app/services/imageService.js:4
+2025-Dec-25 20:37:19.331896
+const { v4: uuidv4 } = require('uuid');
+2025-Dec-25 20:37:19.331896
+^
+2025-Dec-25 20:37:19.331896
+2025-Dec-25 20:37:19.331896
+Error [ERR_REQUIRE_ESM]: require() of ES Module /app/node_modules/uuid/dist-node/index.js from /app/services/imageService.js not supported.
+2025-Dec-25 20:37:19.331896
+Instead change the require of index.js in /app/services/imageService.js to a dynamic import() which is available in all CommonJS modules.
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/services/imageService.js:4:24)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/routes/api.js:3:25)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/server.js:5:19) {
+2025-Dec-25 20:37:19.331896
+code: 'ERR_REQUIRE_ESM'
+2025-Dec-25 20:37:19.331896
+}
+2025-Dec-25 20:37:19.331896
+2025-Dec-25 20:37:19.331896
+Node.js v18.20.8
+2025-Dec-25 20:37:19.331896
+/app/services/imageService.js:4
+2025-Dec-25 20:37:19.331896
+const { v4: uuidv4 } = require('uuid');
+2025-Dec-25 20:37:19.331896
+^
+2025-Dec-25 20:37:19.331896
+2025-Dec-25 20:37:19.331896
+Error [ERR_REQUIRE_ESM]: require() of ES Module /app/node_modules/uuid/dist-node/index.js from /app/services/imageService.js not supported.
+2025-Dec-25 20:37:19.331896
+Instead change the require of index.js in /app/services/imageService.js to a dynamic import() which is available in all CommonJS modules.
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/services/imageService.js:4:24)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/routes/api.js:3:25)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/server.js:5:19) {
+2025-Dec-25 20:37:19.331896
+code: 'ERR_REQUIRE_ESM'
+2025-Dec-25 20:37:19.331896
+}
+2025-Dec-25 20:37:19.331896
+2025-Dec-25 20:37:19.331896
+Node.js v18.20.8
+2025-Dec-25 20:37:19.331896
+/app/services/imageService.js:4
+2025-Dec-25 20:37:19.331896
+const { v4: uuidv4 } = require('uuid');
+2025-Dec-25 20:37:19.331896
+^
+2025-Dec-25 20:37:19.331896
+2025-Dec-25 20:37:19.331896
+Error [ERR_REQUIRE_ESM]: require() of ES Module /app/node_modules/uuid/dist-node/index.js from /app/services/imageService.js not supported.
+2025-Dec-25 20:37:19.331896
+Instead change the require of index.js in /app/services/imageService.js to a dynamic import() which is available in all CommonJS modules.
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/services/imageService.js:4:24)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/routes/api.js:3:25)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/server.js:5:19) {
+2025-Dec-25 20:37:19.331896
+code: 'ERR_REQUIRE_ESM'
+2025-Dec-25 20:37:19.331896
+}
+2025-Dec-25 20:37:19.331896
+2025-Dec-25 20:37:19.331896
+Node.js v18.20.8
+2025-Dec-25 20:37:19.331896
+/app/services/imageService.js:4
+2025-Dec-25 20:37:19.331896
+const { v4: uuidv4 } = require('uuid');
+2025-Dec-25 20:37:19.331896
+^
+2025-Dec-25 20:37:19.331896
+2025-Dec-25 20:37:19.331896
+Error [ERR_REQUIRE_ESM]: require() of ES Module /app/node_modules/uuid/dist-node/index.js from /app/services/imageService.js not supported.
+2025-Dec-25 20:37:19.331896
+Instead change the require of index.js in /app/services/imageService.js to a dynamic import() which is available in all CommonJS modules.
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/services/imageService.js:4:24)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/routes/api.js:3:25)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/server.js:5:19) {
+2025-Dec-25 20:37:19.331896
+code: 'ERR_REQUIRE_ESM'
+2025-Dec-25 20:37:19.331896
+}
+2025-Dec-25 20:37:19.331896
+2025-Dec-25 20:37:19.331896
+Node.js v18.20.8
+2025-Dec-25 20:37:19.331896
+/app/services/imageService.js:4
+2025-Dec-25 20:37:19.331896
+const { v4: uuidv4 } = require('uuid');
+2025-Dec-25 20:37:19.331896
+^
+2025-Dec-25 20:37:19.331896
+2025-Dec-25 20:37:19.331896
+Error [ERR_REQUIRE_ESM]: require() of ES Module /app/node_modules/uuid/dist-node/index.js from /app/services/imageService.js not supported.
+2025-Dec-25 20:37:19.331896
+Instead change the require of index.js in /app/services/imageService.js to a dynamic import() which is available in all CommonJS modules.
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/services/imageService.js:4:24)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/routes/api.js:3:25)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/server.js:5:19) {
+2025-Dec-25 20:37:19.331896
+code: 'ERR_REQUIRE_ESM'
+2025-Dec-25 20:37:19.331896
+}
+2025-Dec-25 20:37:19.331896
+2025-Dec-25 20:37:19.331896
+Node.js v18.20.8
+2025-Dec-25 20:37:19.331896
+/app/services/imageService.js:4
+2025-Dec-25 20:37:19.331896
+const { v4: uuidv4 } = require('uuid');
+2025-Dec-25 20:37:19.331896
+^
+2025-Dec-25 20:37:19.331896
+2025-Dec-25 20:37:19.331896
+Error [ERR_REQUIRE_ESM]: require() of ES Module /app/node_modules/uuid/dist-node/index.js from /app/services/imageService.js not supported.
+2025-Dec-25 20:37:19.331896
+Instead change the require of index.js in /app/services/imageService.js to a dynamic import() which is available in all CommonJS modules.
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/services/imageService.js:4:24)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/routes/api.js:3:25)
+2025-Dec-25 20:37:19.331896
+at Object.<anonymous> (/app/server.js:5:19) {
+2025-Dec-25 20:37:19.331896
+code: 'ERR_REQUIRE_ESM'
+2025-Dec-25 20:37:19.331896
+}
+2025-Dec-25 20:37:19.331896
+2025-Dec-25 20:37:19.331896
+Node.js v18.20.8
+2025-Dec-25 20:37:19.336244
+----------------------------------------
+2025-Dec-25 20:37:19.343833
+Removing old containers.
+2025-Dec-25 20:37:19.351145
+----------------------------------------
+2025-Dec-25 20:37:19.358216
+WARNING: Dockerfile or Docker Image based deployment detected. The healthcheck needs a curl or wget command to check the health of the application. Please make sure that it is available in the image or turn off healthcheck on Coolify's UI.
+2025-Dec-25 20:37:19.365133
+----------------------------------------
+2025-Dec-25 20:37:19.372065
+New container is not healthy, rolling back to the old container.
+2025-Dec-25 20:37:19.506195
+[CMD]: docker stop --time=30 n8wkkgwo8c844kcg8s8o4cgg-203641626557
+2025-Dec-25 20:37:19.506195
+n8wkkgwo8c844kcg8s8o4cgg-203641626557
+2025-Dec-25 20:37:19.621420
+[CMD]: docker rm -f n8wkkgwo8c844kcg8s8o4cgg-203641626557
+2025-Dec-25 20:37:19.621420
+n8wkkgwo8c844kcg8s8o4cgg-203641626557
+2025-Dec-25 20:37:19.627525
+Rolling update completed.
+2025-Dec-25 20:37:19.933584
+Gracefully shutting down build container: ls8gwwwg800wksck4c0ggs44
+2025-Dec-25 20:37:20.219986
+[CMD]: docker stop --time=30 ls8gwwwg800wksck4c0ggs44
+2025-Dec-25 20:37:20.219986
+ls8gwwwg800wksck4c0ggs44
+2025-Dec-25 20:37:20.347097
+[CMD]: docker rm -f ls8gwwwg800wksck4c0ggs44
+2025-Dec-25 20:37:20.347097
+Error response from daemon: No such container: ls8gwwwg800wksck4c0ggs44

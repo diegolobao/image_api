@@ -1,0 +1,338 @@
+2025-Dec-25 20:25:55.051904
+Starting deployment of diegolobao/image_api:main to localhost.
+2025-Dec-25 20:25:55.241795
+Preparing container with helper image: ghcr.io/coollabsio/coolify-helper:1.0.12
+2025-Dec-25 20:25:55.350417
+[CMD]: docker stop --time=30 v4cgs8s84ggc44gk84oc8ccw
+2025-Dec-25 20:25:55.350417
+Error response from daemon: No such container: v4cgs8s84ggc44gk84oc8ccw
+2025-Dec-25 20:25:55.454678
+[CMD]: docker rm -f v4cgs8s84ggc44gk84oc8ccw
+2025-Dec-25 20:25:55.454678
+Error response from daemon: No such container: v4cgs8s84ggc44gk84oc8ccw
+2025-Dec-25 20:25:55.604393
+[CMD]: docker run -d --network coolify --name v4cgs8s84ggc44gk84oc8ccw  --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/coollabsio/coolify-helper:1.0.12
+2025-Dec-25 20:25:55.604393
+0c990997a6481796b82f2c689f96c9015ae5fb55d9958d1aaf0f8624c65a57e7
+2025-Dec-25 20:25:56.372116
+[CMD]: docker exec v4cgs8s84ggc44gk84oc8ccw bash -c 'GIT_SSH_COMMAND="ssh -o ConnectTimeout=30 -p 22 -o Port=22 -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git ls-remote https://github.com/diegolobao/image_api refs/heads/main'
+2025-Dec-25 20:25:56.372116
+d99ab4d7b6f64b0742785425de32de28a2795217	refs/heads/main
+2025-Dec-25 20:25:56.384139
+----------------------------------------
+2025-Dec-25 20:25:56.389910
+Importing diegolobao/image_api:main (commit sha d99ab4d7b6f64b0742785425de32de28a2795217) to /artifacts/v4cgs8s84ggc44gk84oc8ccw.
+2025-Dec-25 20:25:56.526940
+[CMD]: docker exec v4cgs8s84ggc44gk84oc8ccw bash -c 'git clone --depth=1 --recurse-submodules --shallow-submodules -b 'main' 'https://github.com/diegolobao/image_api' '/artifacts/v4cgs8s84ggc44gk84oc8ccw' && cd '/artifacts/v4cgs8s84ggc44gk84oc8ccw' && if [ -f .gitmodules ]; then sed -i "s#git@\(.*\):#https://\1/#g" '/artifacts/v4cgs8s84ggc44gk84oc8ccw'/.gitmodules || true && git submodule sync && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git submodule update --init --recursive --depth=1; fi && cd '/artifacts/v4cgs8s84ggc44gk84oc8ccw' && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git lfs pull'
+2025-Dec-25 20:25:56.526940
+Cloning into '/artifacts/v4cgs8s84ggc44gk84oc8ccw'...
+2025-Dec-25 20:25:59.638078
+[CMD]: docker exec v4cgs8s84ggc44gk84oc8ccw bash -c 'cd /artifacts/v4cgs8s84ggc44gk84oc8ccw && git log -1 d99ab4d7b6f64b0742785425de32de28a2795217 --pretty=%B'
+2025-Dec-25 20:25:59.638078
+Fix: Downgrade uuid to version 9 for CommonJS support
+2025-Dec-25 20:25:59.759538
+Image not found (n8wkkgwo8c844kcg8s8o4cgg:d99ab4d7b6f64b0742785425de32de28a2795217). Building new image.
+2025-Dec-25 20:26:00.324922
+[CMD]: docker exec v4cgs8s84ggc44gk84oc8ccw bash -c 'cat /artifacts/v4cgs8s84ggc44gk84oc8ccw/Dockerfile'
+2025-Dec-25 20:26:00.324922
+FROM node:18-slim
+2025-Dec-25 20:26:00.324922
+2025-Dec-25 20:26:00.324922
+WORKDIR /app
+2025-Dec-25 20:26:00.324922
+2025-Dec-25 20:26:00.324922
+COPY package*.json ./
+2025-Dec-25 20:26:00.324922
+2025-Dec-25 20:26:00.324922
+RUN npm install --production
+2025-Dec-25 20:26:00.324922
+2025-Dec-25 20:26:00.324922
+COPY . .
+2025-Dec-25 20:26:00.324922
+2025-Dec-25 20:26:00.324922
+EXPOSE 3000
+2025-Dec-25 20:26:00.324922
+2025-Dec-25 20:26:00.324922
+CMD ["node", "server.js"]
+2025-Dec-25 20:26:00.496996
+Creating build-time .env file in /artifacts (outside Docker context).
+2025-Dec-25 20:26:00.788479
+[CMD]: docker exec v4cgs8s84ggc44gk84oc8ccw bash -c 'cat /artifacts/build-time.env'
+2025-Dec-25 20:26:00.788479
+SOURCE_COMMIT='d99ab4d7b6f64b0742785425de32de28a2795217'
+2025-Dec-25 20:26:00.788479
+COOLIFY_URL='https://image_api.pontowebmarketing.com.br'
+2025-Dec-25 20:26:00.788479
+COOLIFY_FQDN='image_api.pontowebmarketing.com.br'
+2025-Dec-25 20:26:00.788479
+COOLIFY_BRANCH='main'
+2025-Dec-25 20:26:00.788479
+COOLIFY_RESOURCE_UUID='n8wkkgwo8c844kcg8s8o4cgg'
+2025-Dec-25 20:26:00.788479
+COOLIFY_CONTAINER_NAME='n8wkkgwo8c844kcg8s8o4cgg-202553353417'
+2025-Dec-25 20:26:00.788479
+API_KEY="my-secret-api-key"
+2025-Dec-25 20:26:00.788479
+PORT="3000"
+2025-Dec-25 20:26:00.936381
+[CMD]: docker exec v4cgs8s84ggc44gk84oc8ccw bash -c 'cat /artifacts/v4cgs8s84ggc44gk84oc8ccw/Dockerfile'
+2025-Dec-25 20:26:00.936381
+FROM node:18-slim
+2025-Dec-25 20:26:00.936381
+2025-Dec-25 20:26:00.936381
+WORKDIR /app
+2025-Dec-25 20:26:00.936381
+2025-Dec-25 20:26:00.936381
+COPY package*.json ./
+2025-Dec-25 20:26:00.936381
+2025-Dec-25 20:26:00.936381
+RUN npm install --production
+2025-Dec-25 20:26:00.936381
+2025-Dec-25 20:26:00.936381
+COPY . .
+2025-Dec-25 20:26:00.936381
+2025-Dec-25 20:26:00.936381
+EXPOSE 3000
+2025-Dec-25 20:26:00.936381
+2025-Dec-25 20:26:00.936381
+CMD ["node", "server.js"]
+2025-Dec-25 20:26:00.948571
+Final Dockerfile:
+2025-Dec-25 20:26:01.227259
+[CMD]: docker exec v4cgs8s84ggc44gk84oc8ccw bash -c 'cat /artifacts/v4cgs8s84ggc44gk84oc8ccw/Dockerfile'
+2025-Dec-25 20:26:01.227259
+FROM node:18-slim
+2025-Dec-25 20:26:01.227259
+ARG API_KEY=my-secret-api-key
+2025-Dec-25 20:26:01.227259
+ARG PORT=3000
+2025-Dec-25 20:26:01.227259
+ARG SOURCE_COMMIT=d99ab4d7b6f64b0742785425de32de28a2795217
+2025-Dec-25 20:26:01.227259
+ARG COOLIFY_URL=https://image_api.pontowebmarketing.com.br
+2025-Dec-25 20:26:01.227259
+ARG COOLIFY_FQDN=image_api.pontowebmarketing.com.br
+2025-Dec-25 20:26:01.227259
+ARG COOLIFY_BRANCH=main
+2025-Dec-25 20:26:01.227259
+ARG COOLIFY_RESOURCE_UUID=n8wkkgwo8c844kcg8s8o4cgg
+2025-Dec-25 20:26:01.227259
+ARG COOLIFY_CONTAINER_NAME=n8wkkgwo8c844kcg8s8o4cgg-202553353417
+2025-Dec-25 20:26:01.227259
+2025-Dec-25 20:26:01.227259
+WORKDIR /app
+2025-Dec-25 20:26:01.227259
+2025-Dec-25 20:26:01.227259
+COPY package*.json ./
+2025-Dec-25 20:26:01.227259
+2025-Dec-25 20:26:01.227259
+RUN npm install --production
+2025-Dec-25 20:26:01.227259
+2025-Dec-25 20:26:01.227259
+COPY . .
+2025-Dec-25 20:26:01.227259
+2025-Dec-25 20:26:01.227259
+EXPOSE 3000
+2025-Dec-25 20:26:01.227259
+2025-Dec-25 20:26:01.227259
+CMD ["node", "server.js"]
+2025-Dec-25 20:26:01.234951
+----------------------------------------
+2025-Dec-25 20:26:01.241730
+Building docker image started.
+2025-Dec-25 20:26:01.248068
+To check the current progress, click on Show Debug Logs.
+2025-Dec-25 20:26:01.551119
+[CMD]: docker exec v4cgs8s84ggc44gk84oc8ccw bash -c 'cat /artifacts/build.sh'
+2025-Dec-25 20:26:01.551119
+cd /artifacts/v4cgs8s84ggc44gk84oc8ccw && set -a && source /artifacts/build-time.env && set +a && docker build  --add-host coolify:10.0.2.5 --add-host coolify-db:10.0.2.3 --add-host coolify-realtime:10.0.2.4 --add-host coolify-redis:10.0.2.2 --add-host imgproxy-eg4c8w4044g480g04ogcwgs0:10.0.2.23 --add-host lws0s4cws0ososkswsso808o:10.0.2.7 --add-host n8n-xcoww4so8cwsocw84s8cogw4:10.0.2.10 --add-host n8n_webhook-xcoww4so8cwsocw84s8cogw4:10.0.2.12 --add-host n8n_worker-xcoww4so8cwsocw84s8cogw4:10.0.2.11 --add-host qc4sckwwgs8oowkgo0gc8444:10.0.2.9 --add-host realtime-dev-eg4c8w4044g480g04ogcwgs0:10.0.2.20 --add-host supabase-analytics-eg4c8w4044g480g04ogcwgs0:10.0.2.16 --add-host supabase-auth-eg4c8w4044g480g04ogcwgs0:10.0.2.19 --add-host supabase-db-eg4c8w4044g480g04ogcwgs0:10.0.2.15 --add-host supabase-edge-functions-eg4c8w4044g480g04ogcwgs0:10.0.2.25 --add-host supabase-kong-eg4c8w4044g480g04ogcwgs0:10.0.2.13 --add-host supabase-meta-eg4c8w4044g480g04ogcwgs0:10.0.2.24 --add-host supabase-minio-eg4c8w4044g480g04ogcwgs0:10.0.2.21 --add-host supabase-rest-eg4c8w4044g480g04ogcwgs0:10.0.2.18 --add-host supabase-storage-eg4c8w4044g480g04ogcwgs0:10.0.2.22 --add-host supabase-studio-eg4c8w4044g480g04ogcwgs0:10.0.2.14 --add-host supabase-supavisor-eg4c8w4044g480g04ogcwgs0:10.0.2.26 --add-host supabase-vector-eg4c8w4044g480g04ogcwgs0:10.0.2.17 --network host -f /artifacts/v4cgs8s84ggc44gk84oc8ccw/Dockerfile --build-arg SOURCE_COMMIT --build-arg COOLIFY_URL --build-arg COOLIFY_FQDN --build-arg COOLIFY_BRANCH --build-arg COOLIFY_RESOURCE_UUID --build-arg COOLIFY_CONTAINER_NAME --build-arg API_KEY --build-arg PORT --build-arg COOLIFY_BUILD_SECRETS_HASH=b5c14d0fea3d7f4d63fcf84046d5f5ee55cdddc2ab910ac6ccd276d77dbc704d --build-arg 'SOURCE_COMMIT' --build-arg 'COOLIFY_URL' --build-arg 'COOLIFY_FQDN' --build-arg 'COOLIFY_BRANCH' --build-arg 'COOLIFY_RESOURCE_UUID' --build-arg 'COOLIFY_CONTAINER_NAME' --progress plain -t n8wkkgwo8c844kcg8s8o4cgg:d99ab4d7b6f64b0742785425de32de28a2795217 /artifacts/v4cgs8s84ggc44gk84oc8ccw
+2025-Dec-25 20:26:01.987379
+[CMD]: docker exec v4cgs8s84ggc44gk84oc8ccw bash -c 'bash /artifacts/build.sh'
+2025-Dec-25 20:26:01.987379
+#0 building with "default" instance using docker driver
+2025-Dec-25 20:26:01.987379
+2025-Dec-25 20:26:01.987379
+#1 [internal] load build definition from Dockerfile
+2025-Dec-25 20:26:01.989965
+#1 transferring dockerfile: 527B done
+2025-Dec-25 20:26:01.989965
+#1 DONE 0.0s
+2025-Dec-25 20:26:01.989965
+2025-Dec-25 20:26:01.989965
+#2 [internal] load metadata for docker.io/library/node:18-slim
+2025-Dec-25 20:26:03.007662
+#2 DONE 1.2s
+2025-Dec-25 20:26:03.165284
+#3 [internal] load .dockerignore
+2025-Dec-25 20:26:03.165284
+#3 transferring context: 2B done
+2025-Dec-25 20:26:03.165284
+#3 DONE 0.0s
+2025-Dec-25 20:26:03.165284
+2025-Dec-25 20:26:03.165284
+#4 [1/5] FROM docker.io/library/node:18-slim@sha256:f9ab18e354e6855ae56ef2b290dd225c1e51a564f87584b9bd21dd651838830e
+2025-Dec-25 20:26:03.165284
+#4 resolve docker.io/library/node:18-slim@sha256:f9ab18e354e6855ae56ef2b290dd225c1e51a564f87584b9bd21dd651838830e 0.0s done
+2025-Dec-25 20:26:03.165284
+#4 sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72 0B / 38.30MB 0.1s
+2025-Dec-25 20:26:03.165284
+#4 sha256:2f0d35c51a75cbc9fc4ddeb36aa3e8b7e268306bffe70543e6b02627a54a13c4 0B / 1.71MB 0.1s
+2025-Dec-25 20:26:03.165284
+#4 sha256:378bc28767f6d83e7481f8c90d0e8be1140bb875d4f1c67dea8b3b52baa48282 0B / 448B 0.1s
+2025-Dec-25 20:26:03.165284
+#4 sha256:f9ab18e354e6855ae56ef2b290dd225c1e51a564f87584b9bd21dd651838830e 6.49kB / 6.49kB done
+2025-Dec-25 20:26:03.165284
+#4 sha256:0cc5f8897ffbf799d16ffe58bf3ce6242d23e5f9aa658e55b8d5ca8fc7f01bad 1.93kB / 1.93kB done
+2025-Dec-25 20:26:03.165284
+#4 sha256:c1f2ed8bac52e9b1023ffa1ee5bbf1e0fd0ba478a31b2a321c534de24b3e3893 6.56kB / 6.56kB done
+2025-Dec-25 20:26:03.463929
+#4 sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72 2.10MB / 38.30MB 0.4s
+2025-Dec-25 20:26:03.595607
+#4 sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72 10.49MB / 38.30MB 0.5s
+2025-Dec-25 20:26:03.595607
+#4 sha256:2f0d35c51a75cbc9fc4ddeb36aa3e8b7e268306bffe70543e6b02627a54a13c4 1.71MB / 1.71MB 0.5s
+2025-Dec-25 20:26:03.761110
+#4 ...
+2025-Dec-25 20:26:03.761110
+2025-Dec-25 20:26:03.761110
+#5 [internal] load build context
+2025-Dec-25 20:26:03.761110
+#5 transferring context: 87.88MB 0.5s done
+2025-Dec-25 20:26:03.761110
+#5 DONE 0.6s
+2025-Dec-25 20:26:03.761110
+2025-Dec-25 20:26:03.761110
+#4 [1/5] FROM docker.io/library/node:18-slim@sha256:f9ab18e354e6855ae56ef2b290dd225c1e51a564f87584b9bd21dd651838830e
+2025-Dec-25 20:26:03.761110
+#4 sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72 23.07MB / 38.30MB 0.7s
+2025-Dec-25 20:26:03.761110
+#4 sha256:2f0d35c51a75cbc9fc4ddeb36aa3e8b7e268306bffe70543e6b02627a54a13c4 1.71MB / 1.71MB 0.5s done
+2025-Dec-25 20:26:03.761110
+#4 sha256:378bc28767f6d83e7481f8c90d0e8be1140bb875d4f1c67dea8b3b52baa48282 448B / 448B 0.6s done
+2025-Dec-25 20:26:03.862569
+#4 sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72 31.46MB / 38.30MB 0.8s
+2025-Dec-25 20:26:04.063516
+#4 sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72 38.30MB / 38.30MB 1.0s
+2025-Dec-25 20:26:04.236084
+#4 sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72 38.30MB / 38.30MB 1.0s done
+2025-Dec-25 20:26:04.236084
+#4 extracting sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72 0.1s
+2025-Dec-25 20:26:05.724185
+#4 extracting sha256:bab3dec6af72cc8d9f12335fe020276b8288070bafb8efa2c5308b56d14d8e72 1.5s done
+2025-Dec-25 20:26:05.724185
+#4 extracting sha256:2f0d35c51a75cbc9fc4ddeb36aa3e8b7e268306bffe70543e6b02627a54a13c4
+2025-Dec-25 20:26:05.842576
+#4 extracting sha256:2f0d35c51a75cbc9fc4ddeb36aa3e8b7e268306bffe70543e6b02627a54a13c4 0.0s done
+2025-Dec-25 20:26:05.842576
+#4 extracting sha256:378bc28767f6d83e7481f8c90d0e8be1140bb875d4f1c67dea8b3b52baa48282 done
+2025-Dec-25 20:26:05.842576
+#4 DONE 2.8s
+2025-Dec-25 20:26:05.995191
+#6 [2/5] WORKDIR /app
+2025-Dec-25 20:26:10.268593
+#6 DONE 4.4s
+2025-Dec-25 20:26:10.457821
+#7 [3/5] COPY package*.json ./
+2025-Dec-25 20:26:10.457821
+#7 DONE 0.0s
+2025-Dec-25 20:26:10.457821
+2025-Dec-25 20:26:10.457821
+#8 [4/5] RUN npm install --production
+2025-Dec-25 20:26:10.568250
+#8 0.261 npm warn config production Use `--omit=dev` instead.
+2025-Dec-25 20:26:12.702290
+#8 2.395
+2025-Dec-25 20:26:12.702290
+#8 2.395 added 77 packages, and audited 78 packages in 2s
+2025-Dec-25 20:26:12.855710
+#8 2.395
+2025-Dec-25 20:26:12.855710
+#8 2.395 26 packages are looking for funding
+2025-Dec-25 20:26:12.855710
+#8 2.395   run `npm fund` for details
+2025-Dec-25 20:26:12.855710
+#8 2.397
+2025-Dec-25 20:26:12.855710
+#8 2.397 found 0 vulnerabilities
+2025-Dec-25 20:26:12.855710
+#8 2.398 npm notice
+2025-Dec-25 20:26:12.855710
+#8 2.398 npm notice New major version of npm available! 10.8.2 -> 11.7.0
+2025-Dec-25 20:26:12.855710
+#8 2.398 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.7.0
+2025-Dec-25 20:26:12.855710
+#8 2.398 npm notice To update run: npm install -g npm@11.7.0
+2025-Dec-25 20:26:12.855710
+#8 2.398 npm notice
+2025-Dec-25 20:26:12.940198
+#8 DONE 2.6s
+2025-Dec-25 20:26:13.092486
+#9 [5/5] COPY . .
+2025-Dec-25 20:26:13.941848
+#9 DONE 1.0s
+2025-Dec-25 20:26:14.097884
+#10 exporting to image
+2025-Dec-25 20:26:14.097884
+#10 exporting layers
+2025-Dec-25 20:26:14.203944
+#10 exporting layers 0.3s done
+2025-Dec-25 20:26:14.257752
+#10 writing image sha256:3054541faf8dfe342e4f89e4ca996e678585c8cb2d7e079cb7385db606107d93 done
+2025-Dec-25 20:26:14.257752
+#10 naming to docker.io/library/n8wkkgwo8c844kcg8s8o4cgg:d99ab4d7b6f64b0742785425de32de28a2795217 done
+2025-Dec-25 20:26:14.257752
+#10 DONE 0.3s
+2025-Dec-25 20:26:14.277448
+Building docker image completed.
+2025-Dec-25 20:26:14.289014
+Creating .env file with runtime variables for build phase.
+2025-Dec-25 20:26:14.577501
+[CMD]: docker exec v4cgs8s84ggc44gk84oc8ccw bash -c 'cat /artifacts/v4cgs8s84ggc44gk84oc8ccw/.env'
+2025-Dec-25 20:26:14.577501
+SOURCE_COMMIT=d99ab4d7b6f64b0742785425de32de28a2795217
+2025-Dec-25 20:26:14.577501
+COOLIFY_URL=https://image_api.pontowebmarketing.com.br
+2025-Dec-25 20:26:14.577501
+COOLIFY_FQDN=image_api.pontowebmarketing.com.br
+2025-Dec-25 20:26:14.577501
+COOLIFY_BRANCH=main
+2025-Dec-25 20:26:14.577501
+COOLIFY_RESOURCE_UUID=n8wkkgwo8c844kcg8s8o4cgg
+2025-Dec-25 20:26:14.577501
+COOLIFY_CONTAINER_NAME=n8wkkgwo8c844kcg8s8o4cgg-202553353417
+2025-Dec-25 20:26:14.577501
+API_KEY=my-secret-api-key
+2025-Dec-25 20:26:14.577501
+PORT=3000
+2025-Dec-25 20:26:14.577501
+HOST=0.0.0.0
+2025-Dec-25 20:26:14.687959
+----------------------------------------
+2025-Dec-25 20:26:14.694186
+Rolling update started.
+2025-Dec-25 20:26:14.908147
+[CMD]: docker exec v4cgs8s84ggc44gk84oc8ccw bash -c 'SOURCE_COMMIT=d99ab4d7b6f64b0742785425de32de28a2795217 COOLIFY_URL=https://image_api.pontowebmarketing.com.br COOLIFY_FQDN=image_api.pontowebmarketing.com.br COOLIFY_BRANCH=main COOLIFY_RESOURCE_UUID=n8wkkgwo8c844kcg8s8o4cgg COOLIFY_CONTAINER_NAME=n8wkkgwo8c844kcg8s8o4cgg-202553353417  docker compose --project-name n8wkkgwo8c844kcg8s8o4cgg --project-directory /artifacts/v4cgs8s84ggc44gk84oc8ccw -f /artifacts/v4cgs8s84ggc44gk84oc8ccw/docker-compose.yaml up --build -d'
+2025-Dec-25 20:26:14.908147
+Container n8wkkgwo8c844kcg8s8o4cgg-202553353417  Creating
+2025-Dec-25 20:26:14.949174
+Container n8wkkgwo8c844kcg8s8o4cgg-202553353417  Created
+2025-Dec-25 20:26:14.954437
+Container n8wkkgwo8c844kcg8s8o4cgg-202553353417  Starting
+2025-Dec-25 20:26:15.170714
+Container n8wkkgwo8c844kcg8s8o4cgg-202553353417  Started
+2025-Dec-25 20:26:15.183955
+New container started.
+2025-Dec-25 20:26:15.198619
+Removing old containers.
+2025-Dec-25 20:26:15.333168
+Rolling update completed.
+2025-Dec-25 20:26:15.728871
+Gracefully shutting down build container: v4cgs8s84ggc44gk84oc8ccw
+2025-Dec-25 20:26:16.055594
+[CMD]: docker stop --time=30 v4cgs8s84ggc44gk84oc8ccw
+2025-Dec-25 20:26:16.055594
+v4cgs8s84ggc44gk84oc8ccw
+2025-Dec-25 20:26:16.264485
+[CMD]: docker rm -f v4cgs8s84ggc44gk84oc8ccw
+2025-Dec-25 20:26:16.264485
+Error response from daemon: No such container: v4cgs8s84ggc44gk84oc8ccw

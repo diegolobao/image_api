@@ -34,6 +34,7 @@ O Coolify precisa baixar o código de algum lugar.
    Vá na aba "Environment Variables" e adicione:
    * `API_KEY`: `my-secret-api-key` (ou a senha que você definou no .env)
    * `PORT`: `3000`
+   * `BASE_URL`: `https://image_api.pontowebmarketing.com.br` (A URL do seu domínio, sem a barra no final. Em produção, isso é essencial para que o link da imagem gerada venha correto).
 
 ### Passo 4: Deploy
 1. Clique em **"Deploy"**.

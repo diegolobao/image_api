@@ -1,0 +1,345 @@
+2025-Dec-25 21:00:27.275226
+Starting deployment of diegolobao/image_api:main to localhost.
+2025-Dec-25 21:00:27.897893
+Preparing container with helper image: ghcr.io/coollabsio/coolify-helper:1.0.12
+2025-Dec-25 21:00:28.223664
+[CMD]: docker stop --time=30 f80o0csg4o48wc8ksowk4s4g
+2025-Dec-25 21:00:28.223664
+Error response from daemon: No such container: f80o0csg4o48wc8ksowk4s4g
+2025-Dec-25 21:00:28.547043
+[CMD]: docker rm -f f80o0csg4o48wc8ksowk4s4g
+2025-Dec-25 21:00:28.547043
+Error response from daemon: No such container: f80o0csg4o48wc8ksowk4s4g
+2025-Dec-25 21:00:28.914387
+[CMD]: docker run -d --network coolify --name f80o0csg4o48wc8ksowk4s4g  --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/coollabsio/coolify-helper:1.0.12
+2025-Dec-25 21:00:28.914387
+fd31dba296e8ad91c9c5b0f3dbcd649b754ef7fe6fa27ad31bcc38c812b887b5
+2025-Dec-25 21:00:30.175898
+[CMD]: docker exec f80o0csg4o48wc8ksowk4s4g bash -c 'GIT_SSH_COMMAND="ssh -o ConnectTimeout=30 -p 22 -o Port=22 -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git ls-remote https://github.com/diegolobao/image_api refs/heads/main'
+2025-Dec-25 21:00:30.175898
+67a88cb3691de368da8ea942fdfb523e4e296e05	refs/heads/main
+2025-Dec-25 21:00:30.190753
+----------------------------------------
+2025-Dec-25 21:00:30.197388
+Importing diegolobao/image_api:main (commit sha 67a88cb3691de368da8ea942fdfb523e4e296e05) to /artifacts/f80o0csg4o48wc8ksowk4s4g.
+2025-Dec-25 21:00:30.553570
+[CMD]: docker exec f80o0csg4o48wc8ksowk4s4g bash -c 'git clone --depth=1 --recurse-submodules --shallow-submodules -b 'main' 'https://github.com/diegolobao/image_api' '/artifacts/f80o0csg4o48wc8ksowk4s4g' && cd '/artifacts/f80o0csg4o48wc8ksowk4s4g' && if [ -f .gitmodules ]; then sed -i "s#git@\(.*\):#https://\1/#g" '/artifacts/f80o0csg4o48wc8ksowk4s4g'/.gitmodules || true && git submodule sync && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git submodule update --init --recursive --depth=1; fi && cd '/artifacts/f80o0csg4o48wc8ksowk4s4g' && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git lfs pull'
+2025-Dec-25 21:00:30.553570
+Cloning into '/artifacts/f80o0csg4o48wc8ksowk4s4g'...
+2025-Dec-25 21:00:33.878912
+[CMD]: docker exec f80o0csg4o48wc8ksowk4s4g bash -c 'cd /artifacts/f80o0csg4o48wc8ksowk4s4g && git log -1 67a88cb3691de368da8ea942fdfb523e4e296e05 --pretty=%B'
+2025-Dec-25 21:00:33.878912
+Refactor: Replace uuid with native crypto to fix deploy
+2025-Dec-25 21:00:33.881301
+2025-Dec-25 21:00:34.225404
+[CMD]: docker images -q n8wkkgwo8c844kcg8s8o4cgg:67a88cb3691de368da8ea942fdfb523e4e296e05 2>/dev/null
+2025-Dec-25 21:00:34.225404
+46029c697413
+2025-Dec-25 21:00:34.232900
+No configuration changed & image found (n8wkkgwo8c844kcg8s8o4cgg:67a88cb3691de368da8ea942fdfb523e4e296e05) with the same Git Commit SHA. Build step skipped.
+2025-Dec-25 21:00:35.281060
+[CMD]: docker exec f80o0csg4o48wc8ksowk4s4g bash -c 'cat /artifacts/f80o0csg4o48wc8ksowk4s4g/Dockerfile'
+2025-Dec-25 21:00:35.281060
+FROM node:18-slim
+2025-Dec-25 21:00:35.281060
+2025-Dec-25 21:00:35.281060
+WORKDIR /app
+2025-Dec-25 21:00:35.281060
+2025-Dec-25 21:00:35.281060
+COPY package*.json ./
+2025-Dec-25 21:00:35.281060
+2025-Dec-25 21:00:35.281060
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+2025-Dec-25 21:00:35.281060
+2025-Dec-25 21:00:35.281060
+RUN npm install --production
+2025-Dec-25 21:00:35.281060
+2025-Dec-25 21:00:35.281060
+COPY . .
+2025-Dec-25 21:00:35.281060
+2025-Dec-25 21:00:35.281060
+EXPOSE 3000
+2025-Dec-25 21:00:35.281060
+2025-Dec-25 21:00:35.281060
+CMD ["node", "server.js"]
+2025-Dec-25 21:00:35.659511
+Creating .env file with runtime variables for build phase.
+2025-Dec-25 21:00:36.393485
+[CMD]: docker exec f80o0csg4o48wc8ksowk4s4g bash -c 'cat /artifacts/f80o0csg4o48wc8ksowk4s4g/.env'
+2025-Dec-25 21:00:36.393485
+SOURCE_COMMIT=67a88cb3691de368da8ea942fdfb523e4e296e05
+2025-Dec-25 21:00:36.393485
+COOLIFY_URL=https://image_api.pontowebmarketing.com.br
+2025-Dec-25 21:00:36.393485
+COOLIFY_FQDN=image_api.pontowebmarketing.com.br
+2025-Dec-25 21:00:36.393485
+COOLIFY_BRANCH=main
+2025-Dec-25 21:00:36.393485
+COOLIFY_RESOURCE_UUID=n8wkkgwo8c844kcg8s8o4cgg
+2025-Dec-25 21:00:36.393485
+COOLIFY_CONTAINER_NAME=n8wkkgwo8c844kcg8s8o4cgg-210025227906
+2025-Dec-25 21:00:36.393485
+API_KEY=my-secret-api-key
+2025-Dec-25 21:00:36.393485
+PORT=3000
+2025-Dec-25 21:00:36.393485
+HOST=0.0.0.0
+2025-Dec-25 21:00:36.718787
+----------------------------------------
+2025-Dec-25 21:00:36.724791
+Rolling update started.
+2025-Dec-25 21:00:37.165484
+[CMD]: docker exec f80o0csg4o48wc8ksowk4s4g bash -c 'SOURCE_COMMIT=67a88cb3691de368da8ea942fdfb523e4e296e05 COOLIFY_URL=https://image_api.pontowebmarketing.com.br COOLIFY_FQDN=image_api.pontowebmarketing.com.br COOLIFY_BRANCH=main COOLIFY_RESOURCE_UUID=n8wkkgwo8c844kcg8s8o4cgg COOLIFY_CONTAINER_NAME=n8wkkgwo8c844kcg8s8o4cgg-210025227906  docker compose --project-name n8wkkgwo8c844kcg8s8o4cgg --project-directory /artifacts/f80o0csg4o48wc8ksowk4s4g -f /artifacts/f80o0csg4o48wc8ksowk4s4g/docker-compose.yaml up --build -d'
+2025-Dec-25 21:00:37.165484
+Container n8wkkgwo8c844kcg8s8o4cgg-210025227906  Creating
+2025-Dec-25 21:00:37.496593
+Container n8wkkgwo8c844kcg8s8o4cgg-210025227906  Created
+2025-Dec-25 21:00:37.501899
+Container n8wkkgwo8c844kcg8s8o4cgg-210025227906  Starting
+2025-Dec-25 21:00:37.721109
+Container n8wkkgwo8c844kcg8s8o4cgg-210025227906  Started
+2025-Dec-25 21:00:37.735545
+New container started.
+2025-Dec-25 21:00:37.743854
+Waiting for healthcheck to pass on the new container.
+2025-Dec-25 21:00:37.750220
+Healthcheck URL (inside the container): GET: http://localhost:3000/health
+2025-Dec-25 21:00:37.756325
+Waiting for the start period (5 seconds) before starting healthcheck.
+2025-Dec-25 21:00:43.112818
+[CMD]: docker inspect --format='{{json .State.Health.Status}}' n8wkkgwo8c844kcg8s8o4cgg-210025227906
+2025-Dec-25 21:00:43.112818
+"unhealthy"
+2025-Dec-25 21:00:43.440040
+[CMD]: docker inspect --format='{{json .State.Health.Log}}' n8wkkgwo8c844kcg8s8o4cgg-210025227906
+2025-Dec-25 21:00:43.440040
+[]
+2025-Dec-25 21:00:43.444304
+Attempt 1 of 10 | Healthcheck status: "unhealthy"
+2025-Dec-25 21:00:43.450342
+----------------------------------------
+2025-Dec-25 21:00:43.455932
+Container logs:
+2025-Dec-25 21:00:43.793637
+[CMD]: docker logs -n 100 n8wkkgwo8c844kcg8s8o4cgg-210025227906
+2025-Dec-25 21:00:43.793637
+[dotenv@17.2.3] injecting env (1) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+2025-Dec-25 21:00:43.793637
+[dotenv@17.2.3] injecting env (1) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+2025-Dec-25 21:00:43.793637
+[dotenv@17.2.3] injecting env (1) from .env -- tip: 👥 sync secrets across teammates & machines: https://dotenvx.com/ops
+2025-Dec-25 21:00:43.793637
+[dotenv@17.2.3] injecting env (1) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+2025-Dec-25 21:00:43.793637
+[dotenv@17.2.3] injecting env (1) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+2025-Dec-25 21:00:43.802256
+at Module._compile (node:internal/modules/cjs/loader:1328:27)
+2025-Dec-25 21:00:43.802256
+at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)
+2025-Dec-25 21:00:43.802256
+at Module.load (node:internal/modules/cjs/loader:1203:32)
+2025-Dec-25 21:00:43.802256
+at Module._load (node:internal/modules/cjs/loader:1019:12)
+2025-Dec-25 21:00:43.802256
+at Module.require (node:internal/modules/cjs/loader:1231:19)
+2025-Dec-25 21:00:43.802256
+at require (node:internal/modules/helpers:177:18)
+2025-Dec-25 21:00:43.802256
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 21:00:43.802256
+at Module._compile (node:internal/modules/cjs/loader:1364:14)
+2025-Dec-25 21:00:43.802256
+2025-Dec-25 21:00:43.802256
+Node.js v18.20.8
+2025-Dec-25 21:00:43.802256
+/app/services/imageService.js:4
+2025-Dec-25 21:00:43.802256
+const fs = require('fs');
+2025-Dec-25 21:00:43.802256
+^
+2025-Dec-25 21:00:43.802256
+2025-Dec-25 21:00:43.802256
+SyntaxError: Identifier 'fs' has already been declared
+2025-Dec-25 21:00:43.802256
+at internalCompileFunction (node:internal/vm:76:18)
+2025-Dec-25 21:00:43.802256
+at wrapSafe (node:internal/modules/cjs/loader:1283:20)
+2025-Dec-25 21:00:43.802256
+at Module._compile (node:internal/modules/cjs/loader:1328:27)
+2025-Dec-25 21:00:43.802256
+at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)
+2025-Dec-25 21:00:43.802256
+at Module.load (node:internal/modules/cjs/loader:1203:32)
+2025-Dec-25 21:00:43.802256
+at Module._load (node:internal/modules/cjs/loader:1019:12)
+2025-Dec-25 21:00:43.802256
+at Module.require (node:internal/modules/cjs/loader:1231:19)
+2025-Dec-25 21:00:43.802256
+at require (node:internal/modules/helpers:177:18)
+2025-Dec-25 21:00:43.802256
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 21:00:43.802256
+at Module._compile (node:internal/modules/cjs/loader:1364:14)
+2025-Dec-25 21:00:43.802256
+2025-Dec-25 21:00:43.802256
+Node.js v18.20.8
+2025-Dec-25 21:00:43.802256
+/app/services/imageService.js:4
+2025-Dec-25 21:00:43.802256
+const fs = require('fs');
+2025-Dec-25 21:00:43.802256
+^
+2025-Dec-25 21:00:43.802256
+2025-Dec-25 21:00:43.802256
+SyntaxError: Identifier 'fs' has already been declared
+2025-Dec-25 21:00:43.802256
+at internalCompileFunction (node:internal/vm:76:18)
+2025-Dec-25 21:00:43.802256
+at wrapSafe (node:internal/modules/cjs/loader:1283:20)
+2025-Dec-25 21:00:43.802256
+at Module._compile (node:internal/modules/cjs/loader:1328:27)
+2025-Dec-25 21:00:43.802256
+at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)
+2025-Dec-25 21:00:43.802256
+at Module.load (node:internal/modules/cjs/loader:1203:32)
+2025-Dec-25 21:00:43.802256
+at Module._load (node:internal/modules/cjs/loader:1019:12)
+2025-Dec-25 21:00:43.802256
+at Module.require (node:internal/modules/cjs/loader:1231:19)
+2025-Dec-25 21:00:43.802256
+at require (node:internal/modules/helpers:177:18)
+2025-Dec-25 21:00:43.802256
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 21:00:43.802256
+at Module._compile (node:internal/modules/cjs/loader:1364:14)
+2025-Dec-25 21:00:43.802256
+2025-Dec-25 21:00:43.802256
+Node.js v18.20.8
+2025-Dec-25 21:00:43.802256
+/app/services/imageService.js:4
+2025-Dec-25 21:00:43.802256
+const fs = require('fs');
+2025-Dec-25 21:00:43.802256
+^
+2025-Dec-25 21:00:43.802256
+2025-Dec-25 21:00:43.802256
+SyntaxError: Identifier 'fs' has already been declared
+2025-Dec-25 21:00:43.802256
+at internalCompileFunction (node:internal/vm:76:18)
+2025-Dec-25 21:00:43.802256
+at wrapSafe (node:internal/modules/cjs/loader:1283:20)
+2025-Dec-25 21:00:43.802256
+at Module._compile (node:internal/modules/cjs/loader:1328:27)
+2025-Dec-25 21:00:43.802256
+at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)
+2025-Dec-25 21:00:43.802256
+at Module.load (node:internal/modules/cjs/loader:1203:32)
+2025-Dec-25 21:00:43.802256
+at Module._load (node:internal/modules/cjs/loader:1019:12)
+2025-Dec-25 21:00:43.802256
+at Module.require (node:internal/modules/cjs/loader:1231:19)
+2025-Dec-25 21:00:43.802256
+at require (node:internal/modules/helpers:177:18)
+2025-Dec-25 21:00:43.802256
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 21:00:43.802256
+at Module._compile (node:internal/modules/cjs/loader:1364:14)
+2025-Dec-25 21:00:43.802256
+2025-Dec-25 21:00:43.802256
+Node.js v18.20.8
+2025-Dec-25 21:00:43.802256
+/app/services/imageService.js:4
+2025-Dec-25 21:00:43.802256
+const fs = require('fs');
+2025-Dec-25 21:00:43.802256
+^
+2025-Dec-25 21:00:43.802256
+2025-Dec-25 21:00:43.802256
+SyntaxError: Identifier 'fs' has already been declared
+2025-Dec-25 21:00:43.802256
+at internalCompileFunction (node:internal/vm:76:18)
+2025-Dec-25 21:00:43.802256
+at wrapSafe (node:internal/modules/cjs/loader:1283:20)
+2025-Dec-25 21:00:43.802256
+at Module._compile (node:internal/modules/cjs/loader:1328:27)
+2025-Dec-25 21:00:43.802256
+at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)
+2025-Dec-25 21:00:43.802256
+at Module.load (node:internal/modules/cjs/loader:1203:32)
+2025-Dec-25 21:00:43.802256
+at Module._load (node:internal/modules/cjs/loader:1019:12)
+2025-Dec-25 21:00:43.802256
+at Module.require (node:internal/modules/cjs/loader:1231:19)
+2025-Dec-25 21:00:43.802256
+at require (node:internal/modules/helpers:177:18)
+2025-Dec-25 21:00:43.802256
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 21:00:43.802256
+at Module._compile (node:internal/modules/cjs/loader:1364:14)
+2025-Dec-25 21:00:43.802256
+2025-Dec-25 21:00:43.802256
+Node.js v18.20.8
+2025-Dec-25 21:00:43.804920
+/app/services/imageService.js:4
+2025-Dec-25 21:00:43.804920
+const fs = require('fs');
+2025-Dec-25 21:00:43.804920
+^
+2025-Dec-25 21:00:43.804920
+2025-Dec-25 21:00:43.804920
+SyntaxError: Identifier 'fs' has already been declared
+2025-Dec-25 21:00:43.804920
+at internalCompileFunction (node:internal/vm:76:18)
+2025-Dec-25 21:00:43.804920
+at wrapSafe (node:internal/modules/cjs/loader:1283:20)
+2025-Dec-25 21:00:43.804920
+at Module._compile (node:internal/modules/cjs/loader:1328:27)
+2025-Dec-25 21:00:43.804920
+at Module._extensions..js (node:internal/modules/cjs/loader:1422:10)
+2025-Dec-25 21:00:43.804920
+at Module.load (node:internal/modules/cjs/loader:1203:32)
+2025-Dec-25 21:00:43.804920
+at Module._load (node:internal/modules/cjs/loader:1019:12)
+2025-Dec-25 21:00:43.804920
+at Module.require (node:internal/modules/cjs/loader:1231:19)
+2025-Dec-25 21:00:43.804920
+at require (node:internal/modules/helpers:177:18)
+2025-Dec-25 21:00:43.804920
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 21:00:43.804920
+at Module._compile (node:internal/modules/cjs/loader:1364:14)
+2025-Dec-25 21:00:43.804920
+2025-Dec-25 21:00:43.804920
+Node.js v18.20.8
+2025-Dec-25 21:00:43.807958
+----------------------------------------
+2025-Dec-25 21:00:43.815618
+Removing old containers.
+2025-Dec-25 21:00:43.822470
+----------------------------------------
+2025-Dec-25 21:00:43.828525
+WARNING: Dockerfile or Docker Image based deployment detected. The healthcheck needs a curl or wget command to check the health of the application. Please make sure that it is available in the image or turn off healthcheck on Coolify's UI.
+2025-Dec-25 21:00:43.834307
+----------------------------------------
+2025-Dec-25 21:00:43.841088
+New container is not healthy, rolling back to the old container.
+2025-Dec-25 21:00:44.213956
+[CMD]: docker stop --time=30 n8wkkgwo8c844kcg8s8o4cgg-210025227906
+2025-Dec-25 21:00:44.213956
+n8wkkgwo8c844kcg8s8o4cgg-210025227906
+2025-Dec-25 21:00:44.550531
+[CMD]: docker rm -f n8wkkgwo8c844kcg8s8o4cgg-210025227906
+2025-Dec-25 21:00:44.550531
+n8wkkgwo8c844kcg8s8o4cgg-210025227906
+2025-Dec-25 21:00:44.555076
+Rolling update completed.
+2025-Dec-25 21:00:45.539008
+Gracefully shutting down build container: f80o0csg4o48wc8ksowk4s4g
+2025-Dec-25 21:00:46.054108
+[CMD]: docker stop --time=30 f80o0csg4o48wc8ksowk4s4g
+2025-Dec-25 21:00:46.054108
+f80o0csg4o48wc8ksowk4s4g
+2025-Dec-25 21:00:46.435466
+[CMD]: docker rm -f f80o0csg4o48wc8ksowk4s4g
+2025-Dec-25 21:00:46.435466
+Error response from daemon: No such container: f80o0csg4o48wc8ksowk4s4g

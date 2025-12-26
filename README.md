@@ -101,9 +101,59 @@ Os templates são definidos em `config/templates.js`.
 
 ## Observações de Infraestrutura
 
-**Ambiente de Execução:** Esta aplicação será implantada via Coolify em uma Virtual Private Server (VPS) rodando Ubuntu 20.04 na arquitetura ARM (aarch64).
+### Testing with PowerShell
 
-**Considerações:**
-1.  **Portas:** A porta de escuta da aplicação deve ser definida via Variável de Ambiente (`PORT`).
-2.  **Dependências:** Certifique-se de que a `sharp` está instalada corretamente para a arquitetura ARM.
-3.  **Desempenho:** A VPS possui 4 OCPUs e 24GB de RAM.
+To correctly send accented characters (UTF-8) via PowerShell, you must set the encoding preferences first. You can use the provided helper script:
+
+```powershell
+.\test_request.ps1
+```
+
+Or manually:
+
+```powershell
+$OutputEncoding = [System.Text.Encoding]::UTF8
+Invoke-RestMethod -Uri "http://localhost:3000/api/generate-post" ...
+```
+
+## Integração com n8n
+
+Para integrar com workflows do n8n, utilize o nó **HTTP Request**.
+
+### Configuração do Nó "HTTP Request"
+
+1.  **Method**: `POST`
+2.  **URL**: `https://image_api.pontowebmarketing.com.br/api/generate-post`
+    *   *(Substitua pela URL real que você obteve no Coolify)*
+3.  **Authentication**:
+    *   Authentication Type: `Generic Credential Type`
+    *   Credential Type: `Header Auth`
+    *   Create New Credential:
+        *   **Name**: `x-api-key`
+        *   **Value**: `my-secret-api-key` (sua chave do .env)
+4.  **Send Headers**: `Active`
+    *   **Header Name**: `Content-Type`
+    *   **Value**: `application/json; charset=utf-8`
+    *   *Nota: Esse header é crucial para que acentos (á, é, ã) funcionem corretamente.*
+5.  **Body Content Type**: `JSON`
+6.  **Json Body**:
+    ```json
+    {
+      "template_id": "nutrition-feed",
+      "texts": {
+        "title": "{{ $json.titulo }}",
+        "body": "{{ $json.texto }}"
+      },
+      "image_url": "{{ $json.url_imagem_fundo }}"
+    }
+    ```
+    *(Você pode arrastar as variáveis do nó anterior para preencher os campos dinamicamente)*.
+
+### Saída Esperada
+O nó retornará um JSON:
+```json
+{
+  "url": "https://sua-url.com/public/generated/uuid-da-imagem.png"
+}
+```
+Você pode usar essa URL no próximo nó (ex: postar no Instagram, Telegram, etc).

@@ -1,0 +1,351 @@
+2025-Dec-25 20:32:15.834565
+Starting deployment of diegolobao/image_api:main to localhost.
+2025-Dec-25 20:32:16.028722
+Preparing container with helper image: ghcr.io/coollabsio/coolify-helper:1.0.12
+2025-Dec-25 20:32:16.140143
+[CMD]: docker stop --time=30 b004wggkcskcoswg4oo8800k
+2025-Dec-25 20:32:16.140143
+Error response from daemon: No such container: b004wggkcskcoswg4oo8800k
+2025-Dec-25 20:32:16.253843
+[CMD]: docker rm -f b004wggkcskcoswg4oo8800k
+2025-Dec-25 20:32:16.253843
+Error response from daemon: No such container: b004wggkcskcoswg4oo8800k
+2025-Dec-25 20:32:16.405230
+[CMD]: docker run -d --network coolify --name b004wggkcskcoswg4oo8800k  --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/coollabsio/coolify-helper:1.0.12
+2025-Dec-25 20:32:16.405230
+35e07fcf0cd03430f06137208e271e4e40aa19e5e449765b33a52446819f67cc
+2025-Dec-25 20:32:17.188522
+[CMD]: docker exec b004wggkcskcoswg4oo8800k bash -c 'GIT_SSH_COMMAND="ssh -o ConnectTimeout=30 -p 22 -o Port=22 -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git ls-remote https://github.com/diegolobao/image_api refs/heads/main'
+2025-Dec-25 20:32:17.188522
+d99ab4d7b6f64b0742785425de32de28a2795217	refs/heads/main
+2025-Dec-25 20:32:17.216452
+----------------------------------------
+2025-Dec-25 20:32:17.224005
+Importing diegolobao/image_api:main (commit sha d99ab4d7b6f64b0742785425de32de28a2795217) to /artifacts/b004wggkcskcoswg4oo8800k.
+2025-Dec-25 20:32:17.385641
+[CMD]: docker exec b004wggkcskcoswg4oo8800k bash -c 'git clone --depth=1 --recurse-submodules --shallow-submodules -b 'main' 'https://github.com/diegolobao/image_api' '/artifacts/b004wggkcskcoswg4oo8800k' && cd '/artifacts/b004wggkcskcoswg4oo8800k' && if [ -f .gitmodules ]; then sed -i "s#git@\(.*\):#https://\1/#g" '/artifacts/b004wggkcskcoswg4oo8800k'/.gitmodules || true && git submodule sync && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git submodule update --init --recursive --depth=1; fi && cd '/artifacts/b004wggkcskcoswg4oo8800k' && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git lfs pull'
+2025-Dec-25 20:32:17.385641
+Cloning into '/artifacts/b004wggkcskcoswg4oo8800k'...
+2025-Dec-25 20:32:20.041037
+[CMD]: docker exec b004wggkcskcoswg4oo8800k bash -c 'cd /artifacts/b004wggkcskcoswg4oo8800k && git log -1 d99ab4d7b6f64b0742785425de32de28a2795217 --pretty=%B'
+2025-Dec-25 20:32:20.041037
+Fix: Downgrade uuid to version 9 for CommonJS support
+2025-Dec-25 20:32:20.157687
+[CMD]: docker images -q n8wkkgwo8c844kcg8s8o4cgg:d99ab4d7b6f64b0742785425de32de28a2795217 2>/dev/null
+2025-Dec-25 20:32:20.157687
+3932e2cdc648
+2025-Dec-25 20:32:20.163658
+No configuration changed & image found (n8wkkgwo8c844kcg8s8o4cgg:d99ab4d7b6f64b0742785425de32de28a2795217) with the same Git Commit SHA. Build step skipped.
+2025-Dec-25 20:32:20.557827
+[CMD]: docker exec b004wggkcskcoswg4oo8800k bash -c 'cat /artifacts/b004wggkcskcoswg4oo8800k/Dockerfile'
+2025-Dec-25 20:32:20.557827
+FROM node:18-slim
+2025-Dec-25 20:32:20.557827
+2025-Dec-25 20:32:20.557827
+WORKDIR /app
+2025-Dec-25 20:32:20.557827
+2025-Dec-25 20:32:20.557827
+COPY package*.json ./
+2025-Dec-25 20:32:20.557827
+2025-Dec-25 20:32:20.557827
+RUN npm install --production
+2025-Dec-25 20:32:20.557827
+2025-Dec-25 20:32:20.557827
+COPY . .
+2025-Dec-25 20:32:20.557827
+2025-Dec-25 20:32:20.557827
+EXPOSE 3000
+2025-Dec-25 20:32:20.557827
+2025-Dec-25 20:32:20.557827
+CMD ["node", "server.js"]
+2025-Dec-25 20:32:20.716702
+Creating .env file with runtime variables for build phase.
+2025-Dec-25 20:32:20.986208
+[CMD]: docker exec b004wggkcskcoswg4oo8800k bash -c 'cat /artifacts/b004wggkcskcoswg4oo8800k/.env'
+2025-Dec-25 20:32:20.986208
+SOURCE_COMMIT=d99ab4d7b6f64b0742785425de32de28a2795217
+2025-Dec-25 20:32:20.986208
+COOLIFY_URL=https://image_api.pontowebmarketing.com.br
+2025-Dec-25 20:32:20.986208
+COOLIFY_FQDN=image_api.pontowebmarketing.com.br
+2025-Dec-25 20:32:20.986208
+COOLIFY_BRANCH=main
+2025-Dec-25 20:32:20.986208
+COOLIFY_RESOURCE_UUID=n8wkkgwo8c844kcg8s8o4cgg
+2025-Dec-25 20:32:20.986208
+COOLIFY_CONTAINER_NAME=n8wkkgwo8c844kcg8s8o4cgg-203214118751
+2025-Dec-25 20:32:20.986208
+API_KEY=my-secret-api-key
+2025-Dec-25 20:32:20.986208
+PORT=3000
+2025-Dec-25 20:32:20.986208
+HOST=0.0.0.0
+2025-Dec-25 20:32:21.092926
+----------------------------------------
+2025-Dec-25 20:32:21.100383
+Rolling update started.
+2025-Dec-25 20:32:21.348540
+[CMD]: docker exec b004wggkcskcoswg4oo8800k bash -c 'SOURCE_COMMIT=d99ab4d7b6f64b0742785425de32de28a2795217 COOLIFY_URL=https://image_api.pontowebmarketing.com.br COOLIFY_FQDN=image_api.pontowebmarketing.com.br COOLIFY_BRANCH=main COOLIFY_RESOURCE_UUID=n8wkkgwo8c844kcg8s8o4cgg COOLIFY_CONTAINER_NAME=n8wkkgwo8c844kcg8s8o4cgg-203214118751  docker compose --project-name n8wkkgwo8c844kcg8s8o4cgg --project-directory /artifacts/b004wggkcskcoswg4oo8800k -f /artifacts/b004wggkcskcoswg4oo8800k/docker-compose.yaml up --build -d'
+2025-Dec-25 20:32:21.348540
+time="2025-12-25T20:32:21Z" level=warning msg="Found orphan containers ([n8wkkgwo8c844kcg8s8o4cgg-203054192963]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+2025-Dec-25 20:32:21.351094
+Container n8wkkgwo8c844kcg8s8o4cgg-203214118751  Creating
+2025-Dec-25 20:32:21.658524
+Container n8wkkgwo8c844kcg8s8o4cgg-203214118751  Created
+2025-Dec-25 20:32:21.662231
+Container n8wkkgwo8c844kcg8s8o4cgg-203214118751  Starting
+2025-Dec-25 20:32:21.852054
+Container n8wkkgwo8c844kcg8s8o4cgg-203214118751  Started
+2025-Dec-25 20:32:21.857031
+New container started.
+2025-Dec-25 20:32:21.865656
+Waiting for healthcheck to pass on the new container.
+2025-Dec-25 20:32:21.871489
+Healthcheck URL (inside the container): GET: http://localhost:3000/health
+2025-Dec-25 20:32:21.877180
+Waiting for the start period (5 seconds) before starting healthcheck.
+2025-Dec-25 20:32:27.103561
+[CMD]: docker inspect --format='{{json .State.Health.Status}}' n8wkkgwo8c844kcg8s8o4cgg-203214118751
+2025-Dec-25 20:32:27.103561
+"starting"
+2025-Dec-25 20:32:27.226269
+[CMD]: docker inspect --format='{{json .State.Health.Log}}' n8wkkgwo8c844kcg8s8o4cgg-203214118751
+2025-Dec-25 20:32:27.226269
+[]
+2025-Dec-25 20:32:27.229873
+Attempt 1 of 10 | Healthcheck status: "starting"
+2025-Dec-25 20:32:32.341525
+[CMD]: docker inspect --format='{{json .State.Health.Status}}' n8wkkgwo8c844kcg8s8o4cgg-203214118751
+2025-Dec-25 20:32:32.341525
+"unhealthy"
+2025-Dec-25 20:32:32.449986
+[CMD]: docker inspect --format='{{json .State.Health.Log}}' n8wkkgwo8c844kcg8s8o4cgg-203214118751
+2025-Dec-25 20:32:32.449986
+[]
+2025-Dec-25 20:32:32.453906
+Attempt 2 of 10 | Healthcheck status: "unhealthy"
+2025-Dec-25 20:32:32.459840
+----------------------------------------
+2025-Dec-25 20:32:32.465435
+Container logs:
+2025-Dec-25 20:32:32.575589
+[CMD]: docker logs -n 100 n8wkkgwo8c844kcg8s8o4cgg-203214118751
+2025-Dec-25 20:32:32.575589
+Error [ERR_REQUIRE_ESM]: require() of ES Module /app/node_modules/uuid/dist-node/index.js from /app/services/imageService.js not supported.
+2025-Dec-25 20:32:32.575589
+Instead change the require of index.js in /app/services/imageService.js to a dynamic import() which is available in all CommonJS modules.
+2025-Dec-25 20:32:32.575589
+at Object.<anonymous> (/app/services/imageService.js:4:24)
+2025-Dec-25 20:32:32.575589
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 20:32:32.575589
+at Object.<anonymous> (/app/routes/api.js:3:25)
+2025-Dec-25 20:32:32.575589
+at Object.<anonymous> (/app/server.js:5:19) {
+2025-Dec-25 20:32:32.575589
+code: 'ERR_REQUIRE_ESM'
+2025-Dec-25 20:32:32.575589
+}
+2025-Dec-25 20:32:32.575589
+2025-Dec-25 20:32:32.575589
+Node.js v18.20.8
+2025-Dec-25 20:32:32.578459
+[dotenv@17.2.3] injecting env (1) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+2025-Dec-25 20:32:32.578459
+[dotenv@17.2.3] injecting env (1) from .env -- tip: ✅ audit secrets and track compliance: https://dotenvx.com/ops
+2025-Dec-25 20:32:32.578459
+[dotenv@17.2.3] injecting env (1) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+2025-Dec-25 20:32:32.578459
+[dotenv@17.2.3] injecting env (1) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+2025-Dec-25 20:32:32.578459
+[dotenv@17.2.3] injecting env (1) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+2025-Dec-25 20:32:32.578459
+[dotenv@17.2.3] injecting env (1) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+2025-Dec-25 20:32:32.580742
+/app/services/imageService.js:4
+2025-Dec-25 20:32:32.580742
+const { v4: uuidv4 } = require('uuid');
+2025-Dec-25 20:32:32.580742
+^
+2025-Dec-25 20:32:32.580742
+2025-Dec-25 20:32:32.580742
+Error [ERR_REQUIRE_ESM]: require() of ES Module /app/node_modules/uuid/dist-node/index.js from /app/services/imageService.js not supported.
+2025-Dec-25 20:32:32.580742
+Instead change the require of index.js in /app/services/imageService.js to a dynamic import() which is available in all CommonJS modules.
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/services/imageService.js:4:24)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/routes/api.js:3:25)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/server.js:5:19) {
+2025-Dec-25 20:32:32.580742
+code: 'ERR_REQUIRE_ESM'
+2025-Dec-25 20:32:32.580742
+}
+2025-Dec-25 20:32:32.580742
+2025-Dec-25 20:32:32.580742
+Node.js v18.20.8
+2025-Dec-25 20:32:32.580742
+/app/services/imageService.js:4
+2025-Dec-25 20:32:32.580742
+const { v4: uuidv4 } = require('uuid');
+2025-Dec-25 20:32:32.580742
+^
+2025-Dec-25 20:32:32.580742
+2025-Dec-25 20:32:32.580742
+Error [ERR_REQUIRE_ESM]: require() of ES Module /app/node_modules/uuid/dist-node/index.js from /app/services/imageService.js not supported.
+2025-Dec-25 20:32:32.580742
+Instead change the require of index.js in /app/services/imageService.js to a dynamic import() which is available in all CommonJS modules.
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/services/imageService.js:4:24)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/routes/api.js:3:25)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/server.js:5:19) {
+2025-Dec-25 20:32:32.580742
+code: 'ERR_REQUIRE_ESM'
+2025-Dec-25 20:32:32.580742
+}
+2025-Dec-25 20:32:32.580742
+2025-Dec-25 20:32:32.580742
+Node.js v18.20.8
+2025-Dec-25 20:32:32.580742
+/app/services/imageService.js:4
+2025-Dec-25 20:32:32.580742
+const { v4: uuidv4 } = require('uuid');
+2025-Dec-25 20:32:32.580742
+^
+2025-Dec-25 20:32:32.580742
+2025-Dec-25 20:32:32.580742
+Error [ERR_REQUIRE_ESM]: require() of ES Module /app/node_modules/uuid/dist-node/index.js from /app/services/imageService.js not supported.
+2025-Dec-25 20:32:32.580742
+Instead change the require of index.js in /app/services/imageService.js to a dynamic import() which is available in all CommonJS modules.
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/services/imageService.js:4:24)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/routes/api.js:3:25)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/server.js:5:19) {
+2025-Dec-25 20:32:32.580742
+code: 'ERR_REQUIRE_ESM'
+2025-Dec-25 20:32:32.580742
+}
+2025-Dec-25 20:32:32.580742
+2025-Dec-25 20:32:32.580742
+Node.js v18.20.8
+2025-Dec-25 20:32:32.580742
+/app/services/imageService.js:4
+2025-Dec-25 20:32:32.580742
+const { v4: uuidv4 } = require('uuid');
+2025-Dec-25 20:32:32.580742
+^
+2025-Dec-25 20:32:32.580742
+2025-Dec-25 20:32:32.580742
+Error [ERR_REQUIRE_ESM]: require() of ES Module /app/node_modules/uuid/dist-node/index.js from /app/services/imageService.js not supported.
+2025-Dec-25 20:32:32.580742
+Instead change the require of index.js in /app/services/imageService.js to a dynamic import() which is available in all CommonJS modules.
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/services/imageService.js:4:24)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/routes/api.js:3:25)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/server.js:5:19) {
+2025-Dec-25 20:32:32.580742
+code: 'ERR_REQUIRE_ESM'
+2025-Dec-25 20:32:32.580742
+}
+2025-Dec-25 20:32:32.580742
+2025-Dec-25 20:32:32.580742
+Node.js v18.20.8
+2025-Dec-25 20:32:32.580742
+/app/services/imageService.js:4
+2025-Dec-25 20:32:32.580742
+const { v4: uuidv4 } = require('uuid');
+2025-Dec-25 20:32:32.580742
+^
+2025-Dec-25 20:32:32.580742
+2025-Dec-25 20:32:32.580742
+Error [ERR_REQUIRE_ESM]: require() of ES Module /app/node_modules/uuid/dist-node/index.js from /app/services/imageService.js not supported.
+2025-Dec-25 20:32:32.580742
+Instead change the require of index.js in /app/services/imageService.js to a dynamic import() which is available in all CommonJS modules.
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/services/imageService.js:4:24)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/routes/api.js:3:25)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/server.js:5:19) {
+2025-Dec-25 20:32:32.580742
+code: 'ERR_REQUIRE_ESM'
+2025-Dec-25 20:32:32.580742
+}
+2025-Dec-25 20:32:32.580742
+2025-Dec-25 20:32:32.580742
+Node.js v18.20.8
+2025-Dec-25 20:32:32.580742
+/app/services/imageService.js:4
+2025-Dec-25 20:32:32.580742
+const { v4: uuidv4 } = require('uuid');
+2025-Dec-25 20:32:32.580742
+^
+2025-Dec-25 20:32:32.580742
+2025-Dec-25 20:32:32.580742
+Error [ERR_REQUIRE_ESM]: require() of ES Module /app/node_modules/uuid/dist-node/index.js from /app/services/imageService.js not supported.
+2025-Dec-25 20:32:32.580742
+Instead change the require of index.js in /app/services/imageService.js to a dynamic import() which is available in all CommonJS modules.
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/services/imageService.js:4:24)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/controllers/imageController.js:1:22)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/routes/api.js:3:25)
+2025-Dec-25 20:32:32.580742
+at Object.<anonymous> (/app/server.js:5:19) {
+2025-Dec-25 20:32:32.580742
+code: 'ERR_REQUIRE_ESM'
+2025-Dec-25 20:32:32.580742
+}
+2025-Dec-25 20:32:32.580742
+2025-Dec-25 20:32:32.580742
+Node.js v18.20.8
+2025-Dec-25 20:32:32.583870
+----------------------------------------
+2025-Dec-25 20:32:32.589810
+Removing old containers.
+2025-Dec-25 20:32:32.595755
+----------------------------------------
+2025-Dec-25 20:32:32.601462
+WARNING: Dockerfile or Docker Image based deployment detected. The healthcheck needs a curl or wget command to check the health of the application. Please make sure that it is available in the image or turn off healthcheck on Coolify's UI.
+2025-Dec-25 20:32:32.607080
+----------------------------------------
+2025-Dec-25 20:32:32.612973
+New container is not healthy, rolling back to the old container.
+2025-Dec-25 20:32:32.747530
+[CMD]: docker stop --time=30 n8wkkgwo8c844kcg8s8o4cgg-203214118751
+2025-Dec-25 20:32:32.747530
+n8wkkgwo8c844kcg8s8o4cgg-203214118751
+2025-Dec-25 20:32:32.862631
+[CMD]: docker rm -f n8wkkgwo8c844kcg8s8o4cgg-203214118751
+2025-Dec-25 20:32:32.862631
+n8wkkgwo8c844kcg8s8o4cgg-203214118751
+2025-Dec-25 20:32:32.866636
+Rolling update completed.
+2025-Dec-25 20:32:33.170137
+Gracefully shutting down build container: b004wggkcskcoswg4oo8800k
+2025-Dec-25 20:32:33.464936
+[CMD]: docker stop --time=30 b004wggkcskcoswg4oo8800k
+2025-Dec-25 20:32:33.464936
+b004wggkcskcoswg4oo8800k
+2025-Dec-25 20:32:33.586721
+[CMD]: docker rm -f b004wggkcskcoswg4oo8800k
+2025-Dec-25 20:32:33.586721
+Error response from daemon: No such container: b004wggkcskcoswg4oo8800k
