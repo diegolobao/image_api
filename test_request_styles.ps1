@@ -33,7 +33,7 @@ try {
         -Body $body
       
     Write-Host "Response:"
-    Write-Host $response.url
+    Write-Host ($response | ConvertTo-Json -Depth 5)
 }
 catch {
     Write-Host "Error:"

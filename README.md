@@ -205,10 +205,23 @@ Você pode sobrescrever os estilos padrão do template enviando um objeto `style
 ```
 
 ### Saída Esperada
-O nó retornará um JSON:
+O nó retornará um JSON padronizado com o campo `status`, ideal para usar no nó **Switch** do n8n.
+
+**Sucesso (200 OK):**
 ```json
 {
-  "url": "https://sua-url.com/public/generated/uuid-da-imagem.png"
+  "status": "success",
+  "url": "https://sua-url.com/public/generated/uuid-da-imagem.png",
+  "generated_at": "2025-12-26T10:00:00.000Z"
+}
+```
+
+**Erro (400/500):**
+```json
+{
+  "status": "error",
+  "message": "Descrição do erro",
+  "error_code": "INTERNAL_SERVER_ERROR"
 }
 ```
 Você pode usar essa URL no próximo nó (ex: postar no Instagram, Telegram, etc).
