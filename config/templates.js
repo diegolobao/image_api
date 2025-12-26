@@ -52,7 +52,8 @@ module.exports = {
                 fontFamily: 'Bebas Neue, sans-serif',
                 color: '#6c6c6c',
                 stroke: '#000000',
-                strokeWidth: 0
+                strokeWidth: 0,
+                letterSpacing: 0
             },
             body: {
                 left: 50,
@@ -62,7 +63,8 @@ module.exports = {
                 fontFamily: 'Bebas Neue, sans-serif',
                 color: '#9f9f9f',
                 stroke: '#000000',
-                strokeWidth: 0
+                strokeWidth: 0,
+                letterSpacing: 0
             }
         }
     }

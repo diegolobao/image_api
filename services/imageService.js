@@ -104,6 +104,7 @@ exports.generateImage = async (templateId, texts, imageUrl, styles = {}) => {
                 font-weight: bold;
                 stroke: ${templateConfig.textConfig.title.stroke || 'none'};
                 stroke-width: ${templateConfig.textConfig.title.strokeWidth || 0}px;
+                letter-spacing: ${templateConfig.textConfig.title.letterSpacing || 0}px;
                 paint-order: stroke fill;
             }
             .body { 
@@ -113,6 +114,7 @@ exports.generateImage = async (templateId, texts, imageUrl, styles = {}) => {
                 font-weight: bold;
                 stroke: ${templateConfig.textConfig.body.stroke || 'none'};
                 stroke-width: ${templateConfig.textConfig.body.strokeWidth || 0}px;
+                letter-spacing: ${templateConfig.textConfig.body.letterSpacing || 0}px;
                 paint-order: stroke fill;
             }
         </style>

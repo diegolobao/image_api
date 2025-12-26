@@ -178,6 +178,7 @@ Você pode sobrescrever os estilos padrão do template enviando um objeto `style
 | `stroke` | String | Cor da borda/contorno do texto | `"#000000"` |
 | `strokeWidth` | Number | Espessura da borda/contorno | `2` |
 | `fontFamily` | String | Família da fonte (se disponível no sistema) | `"Arial"` |
+| `letterSpacing` | Number | Espaçamento entre os caracteres em pixels | `10` |
 
 **Exemplo de JSON completo com estilos:**
 
