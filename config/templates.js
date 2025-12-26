@@ -67,5 +67,41 @@ module.exports = {
                 letterSpacing: 0
             }
         }
+    },
+    'nutrition-feed2': {
+        filename: 'exemplo_modelo.jpg', // Default background if no URL provided
+        textConfig: {
+            title: {
+                left: 50,
+                top: 1170,
+                width: 980, // 1080 - 50 - 50 (margins)
+                fontSize: 150,
+                fontFamily: 'Bebas Neue, sans-serif',
+                color: '#fffc00',
+                stroke: '#000000',
+                strokeWidth: 0,
+                letterSpacing: 0
+            },
+            body: {
+                left: 50,
+                top: 1280,
+                width: 980,
+                fontSize: 105,
+                fontFamily: 'Bebas Neue, sans-serif',
+                color: '#ffffff',
+                stroke: '#000000',
+                strokeWidth: 0,
+                letterSpacing: 0
+            }
+        },
+        overlay: {
+            enabled: true,
+            y: 900,
+            height: 450, // 1350 - 900
+            fromColor: '#ffffffff',
+            fromOpacity: 0,
+            toColor: '#000000',
+            toOpacity: 1
+        }
     }
 };

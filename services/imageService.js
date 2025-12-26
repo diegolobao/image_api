@@ -94,8 +94,25 @@ exports.generateImage = async (templateId, texts, imageUrl, styles = {}) => {
     const outputPath = path.join(OUTPUT_DIR, filename);
 
     // Create SVG for text overlay
+    // SVG Content Generation
+    let defs = '';
+    let extraElements = '';
+
+    if (templateConfig.overlay && templateConfig.overlay.enabled) {
+        defs += `
+        <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:${templateConfig.overlay.fromColor};stop-opacity:${templateConfig.overlay.fromOpacity}" />
+                <stop offset="100%" style="stop-color:${templateConfig.overlay.toColor};stop-opacity:${templateConfig.overlay.toOpacity}" />
+            </linearGradient>
+        </defs>`;
+
+        extraElements += `<rect x="0" y="${templateConfig.overlay.y}" width="1080" height="${templateConfig.overlay.height}" fill="url(#grad1)" />`;
+    }
+
     const svgImage = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
     <svg width="1080" height="1350">
+        ${defs}
         <style>
             .title { 
                 fill: ${templateConfig.textConfig.title.color}; 
@@ -118,6 +135,7 @@ exports.generateImage = async (templateId, texts, imageUrl, styles = {}) => {
                 paint-order: stroke fill;
             }
         </style>
+        ${extraElements}
         <text x="${templateConfig.textConfig.title.left}" y="${templateConfig.textConfig.title.top}" class="title">${escapeHtml(texts.title || '')}</text>
         <text x="${templateConfig.textConfig.body.left}" y="${templateConfig.textConfig.body.top}" class="body">${escapeHtml(texts.body || '')}</text>
     </svg>
