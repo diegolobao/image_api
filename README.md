@@ -224,4 +224,15 @@ O nó retornará um JSON padronizado com o campo `status`, ideal para usar no n�
   "error_code": "INTERNAL_SERVER_ERROR"
 }
 ```
-Você pode usar essa URL no próximo nó (ex: postar no Instagram, Telegram, etc).
+
+### Configurando a Lógica no n8n (Switch)
+
+Para validar se a imagem foi gerada com sucesso:
+
+1. Adicione um nó **Switch** após o HTTP Request.
+2. Defina a regra:
+   - **Value 1:** `{{ $json.status }}`
+   - **Operation:** `Equal`
+   - **Value 2:** `success`
+3. Conecte o caminho **Output 0 (True)** ao próximo passo (ex: Instagram).
+4. Conecte o caminho **Output 1 (False)** a um tratamento de erro.
