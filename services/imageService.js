@@ -13,7 +13,7 @@ if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 }
 
-exports.generateImage = async (templateId, texts, imageUrl) => {
+exports.generateImage = async (templateId, texts, imageUrl, styles = {}) => {
     console.log('Generating image with:', { templateId, imageUrl });
 
     // Fix for UTF-8 bytes interpreted as Latin-1 (Mojibake)
@@ -46,7 +46,21 @@ exports.generateImage = async (templateId, texts, imageUrl) => {
         }
     }
 
-    const templateConfig = templates[templateId] || templates['default'];
+    // Deep clone to allow per-request modifications without affecting global config customStyles
+    const baseConfig = templates[templateId] || templates['default'];
+    const templateConfig = JSON.parse(JSON.stringify(baseConfig));
+
+    // Apply style overrides if provided
+    if (styles) {
+        if (styles.title) {
+            console.log('Applying custom styles for title:', styles.title);
+            Object.assign(templateConfig.textConfig.title, styles.title);
+        }
+        if (styles.body) {
+            console.log('Applying custom styles for body:', styles.body);
+            Object.assign(templateConfig.textConfig.body, styles.body);
+        }
+    }
     let inputBuffer;
 
     if (imageUrl) {
