@@ -97,8 +97,8 @@ module.exports = {
         overlay: {
             enabled: true,
             y: 900,
-            height: 450, // 1350 - 900
-            fromColor: '#ffffffff',
+            height: 350, // 1350 - 900
+            fromColor: '#000000',
             fromOpacity: 0,
             toColor: '#000000',
             toOpacity: 1

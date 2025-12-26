@@ -108,6 +108,14 @@ exports.generateImage = async (templateId, texts, imageUrl, styles = {}) => {
         </defs>`;
 
         extraElements += `<rect x="0" y="${templateConfig.overlay.y}" width="1080" height="${templateConfig.overlay.height}" fill="url(#grad1)" />`;
+
+        // Check if we need to fill the rest of the image with solid color
+        const IMAGE_HEIGHT = 1350;
+        const gradientEnd = templateConfig.overlay.y + templateConfig.overlay.height;
+
+        if (gradientEnd < IMAGE_HEIGHT) {
+            extraElements += `<rect x="0" y="${gradientEnd}" width="1080" height="${IMAGE_HEIGHT - gradientEnd}" fill="${templateConfig.overlay.toColor}" fill-opacity="${templateConfig.overlay.toOpacity}" />`;
+        }
     }
 
     const svgImage = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>

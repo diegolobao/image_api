@@ -2,7 +2,7 @@ $OutputEncoding = [System.Text.Encoding]::UTF8
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 $body = @{
-    template_id = "nutrition-feed"
+    template_id = "nutrition-feed2"
     texts       = @{
         title = "ESTILO CUSTOMIZADO"
         body  = "Funciona!"
