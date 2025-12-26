@@ -137,17 +137,72 @@ Para integrar com workflows do n8n, utilize o nó **HTTP Request**.
     *   *Nota: Esse header é crucial para que acentos (á, é, ã) funcionem corretamente.*
 5.  **Body Content Type**: `JSON`
 6.  **Json Body**:
-    ```json
     {
       "template_id": "nutrition-feed",
       "texts": {
         "title": "{{ $json.titulo }}",
         "body": "{{ $json.texto }}"
       },
-      "image_url": "{{ $json.url_imagem_fundo }}"
+      "image_url": "{{ $json.url_imagem_fundo }}",
+      "styles": {
+        "title": {
+            "fontSize": 150,
+            "color": "#FF0000",
+            "top": 200,
+            "left": 50
+        },
+        "body": {
+            "fontSize": 80,
+            "color": "#FFFFFF",
+            "stroke": "#000000",
+            "strokeWidth": 2,
+            "top": 600
+        }
+      }
     }
     ```
     *(Você pode arrastar as variáveis do nó anterior para preencher os campos dinamicamente)*.
+
+### Personalização Avançada (Opcional)
+
+Você pode sobrescrever os estilos padrão do template enviando um objeto `styles`. Isso permite controle total sobre a aparência de cada texto individualmente.
+
+**Parâmetros suportados (dentro de `styles.title` ou `styles.body`):**
+
+| Parâmetro | Tipo | Descrição | Exemplo |
+| :--- | :--- | :--- | :--- |
+| `fontSize` | Number | Tamanho da fonte em pixels | `150` |
+| `color` | String | Cor do texto (Hexadecimal) | `"#FF0000"` |
+| `left` | Number | Posição horizontal (Eixo X) | `50` |
+| `top` | Number | Posição vertical (Eixo Y) | `200` |
+| `stroke` | String | Cor da borda/contorno do texto | `"#000000"` |
+| `strokeWidth` | Number | Espessura da borda/contorno | `2` |
+| `fontFamily` | String | Família da fonte (se disponível no sistema) | `"Arial"` |
+
+**Exemplo de JSON completo com estilos:**
+
+```json
+{
+  "template_id": "nutrition-feed",
+  "texts": {
+    "title": "FÉRIAS",
+    "body": "Energia Pura"
+  },
+  "image_url": "https://v3b.fal.media/files/b/lion/zEsDfwh60McbhwIAERBiJ.jpg",
+  "styles": {
+    "title": {
+      "fontSize": 150,
+      "color": "#FF0000",
+      "top": 200
+    },
+    "body": {
+      "color": "#FFFFFF",
+      "stroke": "#000000",
+      "strokeWidth": 2
+    }
+  }
+}
+```
 
 ### Saída Esperada
 O nó retornará um JSON:
